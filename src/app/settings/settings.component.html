@@ -1,0 +1,58 @@
+<div class="settings-container">
+  <!-- Bouton d'ouverture des réglages -->
+  <button class="settings-toggle" (click)="toggleSettings()" [class.active]="isOpen">
+    <mat-icon>settings</mat-icon>
+  </button>
+
+  <!-- Menu déroulant des réglages -->
+  <div class="settings-dropdown" [class.open]="isOpen">
+    <div class="settings-header">
+      <h3>⚙️ Réglages</h3>
+      <button class="close-btn" (click)="closeSettings()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+    <!-- Section Langue -->
+    <div class="settings-section">
+      <div class="section-title">
+        <mat-icon>language</mat-icon>
+        <span>Langue</span>
+      </div>
+      <div class="language-options">
+        <button 
+          *ngFor="let lang of languages" 
+          class="language-btn"
+          [class.active]="currentLanguage === lang.code"
+          (click)="changeLanguage(lang.code)">
+          <span class="flag">{{ lang.flag }}</span>
+          <span class="name">{{ lang.name }}</span>
+          <mat-icon *ngIf="currentLanguage === lang.code" class="check">check</mat-icon>
+        </button>
+      </div>
+    </div>
+
+    <!-- Section Thème -->
+    <div class="settings-section">
+      <div class="section-title">
+        <mat-icon>palette</mat-icon>
+        <span>Thème</span>
+      </div>
+      <div class="theme-toggle">
+        <button class="theme-btn" (click)="toggleTheme()">
+          <div class="theme-slider" [class.dark]="currentTheme === 'dark'">
+            <div class="theme-indicator">
+              <mat-icon>{{ currentTheme === 'light' ? 'light_mode' : 'dark_mode' }}</mat-icon>
+            </div>
+          </div>
+          <span class="theme-label">
+            {{ currentTheme === 'light' ? 'Clair' : 'Sombre' }}
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Overlay pour fermer en cliquant à l'extérieur -->
+  <div class="settings-overlay" *ngIf="isOpen" (click)="closeSettings()"></div>
+</div>

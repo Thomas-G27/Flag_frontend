@@ -2,7 +2,8 @@
 
 nav {
   height: 80px;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: var(--gradient-primary);
+  transition: background 0.3s ease;
 
   div {
     height: 100%;

@@ -12,6 +12,7 @@ import { MatIconModule } from "@angular/material/icon"
 import { MatButtonModule } from "@angular/material/button"
 import { QuizComponent } from "quiz/quiz.component"
 import { RulesComponent } from "rules/rules.component"
+import { SettingsComponent } from "./settings/settings.component"
 import { HttpClientModule } from "@angular/common/http"
 
 @NgModule({
@@ -21,6 +22,7 @@ import { HttpClientModule } from "@angular/common/http"
     HomeComponent,
     QuizComponent,
     RulesComponent,
+    SettingsComponent,
   ],
   imports: [
     BrowserModule,
