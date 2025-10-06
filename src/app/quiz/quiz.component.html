@@ -1,10 +1,11 @@
 <div class="quiz-container">
-    <h1>{{ translations.quiz?.title || 'Quiz Drapeaux' }}</h1>
-    <p>{{ translations.quiz?.welcome || 'Bienvenue dans le quiz des drapeaux ! Testez vos connaissances.' }}</p>
-    <div class="quiz-content">
+    <h1>Quiz Drapeaux</h1>
+    <p>Bienvenue dans le quiz des drapeaux ! Testez vos connaissances.</p>
+    <div class="quiz-content" *ngIf="!quizFinished">
         <div class="question">
+            <p>Question {{ currentQuestionIndex + 1 }} sur {{ questions.length }}</p>
             <p>À quel pays appartient ce drapeau ?</p>
-            <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="Drapeau" width="200">
+            <img [src]="questions[currentQuestionIndex].flagUrl" alt="Drapeau" width="200">
         </div>
         <form (ngSubmit)="submitAnswer()">
             <input 
@@ -14,12 +15,19 @@
                 placeholder="Entrez le nom du pays" 
                 required
                 class="form-control"
+                [disabled]="feedback !== ''"
             >
-            <button class="btn btn-primary" type="submit">Valider</button>
+            <button class="btn btn-primary" type="submit" [disabled]="feedback !== ''">Valider</button>
         </form>
         <div *ngIf="feedback" class="feedback">
             {{ feedback }}
         </div>
+        <button class="btn btn-secondary" routerLink="/">Retour à l'accueil</button>
+    </div>
+    <div class="quiz-content" *ngIf="quizFinished">
+        <h2>Quiz terminé !</h2>
+        <p>Votre score : {{ score }} / {{ questions.length }}</p>
+        <button class="btn btn-primary" (click)="restartQuiz()">Recommencer</button>
         <button class="btn btn-secondary" routerLink="/">Retour à l'accueil</button>
     </div>
 </div>
