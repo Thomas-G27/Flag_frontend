@@ -1,26 +1,88 @@
-import {Component, OnInit} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+
+interface Question {
+    flagUrl: string;
+    answers: string[];
+}
 
 @Component({
     selector: 'quiz',
     templateUrl: './quiz.component.html',
     styleUrls: ['./quiz.component.scss']
 })
-
 export class QuizComponent implements OnInit {
+    questions: Question[] = [
+        {
+            flagUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg',
+            answers: ['nepal', 'népal']
+        },
+        {
+            flagUrl: 'https://upload.wikimedia.org/wikipedia/commons/2/26/Flag_of_East_Timor.svg',
+            answers: ['timor oriental', 'timor-oriental', 'timor', 'timor leste', 'timor-leste', 'east timor']
+        },
+        {
+            flagUrl: 'https://upload.wikimedia.org/wikipedia/commons/4/41/Flag_of_India.svg',
+            answers: ['inde', 'india']
+        },
+        {
+            flagUrl: 'https://upload.wikimedia.org/wikipedia/commons/0/05/Flag_of_Brazil.svg',
+            answers: ['brésil', 'bresil', 'brazil']
+        },
+        {
+            flagUrl: 'https://upload.wikimedia.org/wikipedia/commons/f/f3/Flag_of_Russia.svg',
+            answers: ['russie', 'russia']
+        }
+    ];
+
+    currentQuestionIndex: number = 0;
     userAnswer: string = '';
     feedback: string = '';
+    score: number = 0;
+    quizFinished: boolean = false;
 
     constructor() { }
 
-    ngOnInit(): void { }
+    ngOnInit(): void { 
+        this.shuffleQuestions();
+    }
+
+    shuffleQuestions(): void {
+    for (let i = this.questions.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [this.questions[i], this.questions[j]] = [this.questions[j], this.questions[i]];
+        }
+    }
 
     submitAnswer(): void {
-        // Ici tu pourras appeler ton backend plus tard
-        // Exemple de vérification locale temporaire :
-        if (this.userAnswer.trim().toLowerCase() === 'états-unis' || this.userAnswer.trim().toLowerCase() === 'etats-unis' || this.userAnswer.trim().toLowerCase() === 'usa') {
+        const currentQuestion = this.questions[this.currentQuestionIndex];
+        const answer = this.userAnswer.trim().toLowerCase();
+
+        if (currentQuestion.answers.includes(answer)) {
             this.feedback = 'Bonne réponse !';
+            this.score++;
         } else {
-            this.feedback = 'Mauvaise réponse, essaye encore.';
+            this.feedback = 'Mauvaise réponse, dommage...';
         }
+
+        setTimeout(() => {
+            this.feedback = '';
+            this.userAnswer = '';
+            this.nextQuestion();
+        }, 1200);
+    }
+
+    nextQuestion(): void {
+        this.currentQuestionIndex++;
+        if (this.currentQuestionIndex >= this.questions.length) {
+            this.quizFinished = true;
+        }
+    }
+
+    restartQuiz(): void {
+        this.currentQuestionIndex = 0;
+        this.score = 0;
+        this.quizFinished = false;
+        this.userAnswer = '';
+        this.feedback = '';
     }
 }
