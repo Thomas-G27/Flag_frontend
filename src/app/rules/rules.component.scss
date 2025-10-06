@@ -5,7 +5,9 @@
   justify-content: center;
   padding: 20px;
   min-height: 100vh;
-  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
 }
 
 .rules-container {
@@ -17,17 +19,17 @@
     margin-bottom: 40px;
     
     h1 {
-      color: theme.$common-purple;
+      color: var(--text-primary);
       font-size: 3.5em;
       font-family: 'Caveat', sans-serif;
       font-weight: 700;
       margin-bottom: 15px;
-      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+      text-shadow: 2px 2px 4px var(--shadow);
     }
     
     .subtitle {
       font-size: 1.3em;
-      color: #666;
+      color: var(--text-secondary);
       font-style: italic;
       margin: 0;
     }
@@ -35,16 +37,17 @@
   
   .rules-content {
     .rule-section {
-      background: white;
+      background: var(--bg-secondary);
       border-radius: 15px;
       padding: 30px;
       margin-bottom: 30px;
-      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 8px 25px var(--shadow);
+      transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+      border: 1px solid var(--border-color);
       
       &:hover {
         transform: translateY(-5px);
-        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 15px 40px var(--shadow);
       }
       
       .section-header {
@@ -58,7 +61,7 @@
         }
         
         h2 {
-          color: theme.$common-purple;
+          color: var(--text-primary);
           font-size: 2em;
           font-weight: 600;
           margin: 0;
@@ -69,7 +72,7 @@
         p {
           font-size: 1.1em;
           line-height: 1.8;
-          color: #555;
+          color: var(--text-secondary);
           margin-bottom: 20px;
         }
         

@@ -1,7 +1,15 @@
 <div class="quiz-container">
-    <h1>Quiz Drapeaux</h1>
-    <p>Bienvenue dans le quiz des drapeaux ! Testez vos connaissances.</p>
+    <h1>{{ translations.quiz?.title || 'Quiz Drapeaux' }}</h1>
+    <p>{{ translations.quiz?.welcome || 'Bienvenue dans le quiz des drapeaux ! Testez vos connaissances.' }}</p>
     <div class="quiz-content">
-        <p>Le quiz sera implémenté ici...</p>
-        <button class="btn btn-secondary" routerLink ="/">Retour à l'accueil</button>
+        <div class="quiz-placeholder">
+            <p>{{ translations.quiz?.comingSoon || 'Le quiz sera bientôt disponible...' }}</p>
+            <input type="text" [placeholder]="translations.quiz?.placeholder || 'Tapez le nom du pays...'" class="country-input">
+            <div class="quiz-buttons">
+                <button class="btn btn-primary">{{ translations.quiz?.submit || 'Valider' }}</button>
+                <button class="btn btn-secondary">{{ translations.quiz?.skip || 'Passer' }}</button>
+            </div>
+        </div>
+        <button class="btn btn-back" routerLink="/">{{ translations.quiz?.backHome || 'Retour à l\'accueil' }}</button>
+    </div>
 </div>
