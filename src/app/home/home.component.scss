@@ -1,44 +1,147 @@
+@use "theme";
+
 :host {
   display: flex;
   align-content: center;
   align-items: center;
   margin: 25px;
   flex-direction: column;
+  min-height: 80vh;
+  justify-content: space-around;
 
   .title {
     font-family: Caveat, sans-serif;
     font-size: 4.5em;
     font-weight: 700;
     margin: 30px 0;
+    color: theme.$common-purple;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
   }
 
-  .welcome {
-    text-align: center;
-    margin-top: 30px;
-    margin-bottom: 30px;
-    font-size: x-large;
-  }
-
-  .card {
-    margin-top: 50px;
-    margin-left: 50px;
-    border: none;
+  .welcome-section {
     display: flex;
+    flex-direction: column;
     align-items: center;
+    margin-bottom: 40px;
 
-    img {
-      height: 64%;
-      width: 68%;
-      margin-left: 20px;
-    }
-
-    .card-text {
-      font-family: "Dancing Script", sans-serif;
+    .welcome {
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 30px;
       font-size: x-large;
-      margin-top: 0;
-      line-height: 1.7;
-      max-width: 400px;
-      margin-left: 15px;
+      color: #555;
+      max-width: 600px;
+    }
+  }
+
+  .description {
+    text-align: center;
+    margin: 30px 0;
+    
+    p {
+      font-size: 1.2em;
+      color: #666;
+      margin: 10px 0;
+      line-height: 1.6;
+    }
+  }
+
+  .play-section {
+    margin: 50px 0;
+    
+    .play-button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 20px 60px;
+      font-size: 2em;
+      font-weight: bold;
+      border-radius: 50px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+      
+      .button-text {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+      }
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 35px rgba(102, 126, 234, 0.4);
+        background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+      }
+      
+      &:active {
+        transform: translateY(-2px);
+      }
+    }
+  }
+
+  .features {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-top: 60px;
+    
+    .feature-card {
+      background: white;
+      padding: 30px 20px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      max-width: 250px;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+      
+      .feature-icon {
+        font-size: 3em;
+        margin-bottom: 15px;
+      }
+      
+      h3 {
+        color: theme.$common-purple;
+        margin: 15px 0 10px 0;
+        font-size: 1.3em;
+        font-weight: 600;
+      }
+      
+      p {
+        color: #666;
+        font-size: 1em;
+        line-height: 1.5;
+        margin: 0;
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  :host {
+    margin: 15px;
+    
+    .title {
+      font-size: 3em;
+    }
+    
+    .features {
+      gap: 20px;
+      
+      .feature-card {
+        max-width: 200px;
+        padding: 20px 15px;
+      }
+    }
+    
+    .play-section .play-button {
+      padding: 15px 40px;
+      font-size: 1.5em;
     }
   }
 }
