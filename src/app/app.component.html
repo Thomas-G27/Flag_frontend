@@ -1,3 +1,6 @@
-<navbar></navbar>
-<router-outlet></router-outlet>
+<div [class]="'app-container theme-' + currentTheme">
+  <navbar></navbar>
+  <settings></settings>
+  <router-outlet></router-outlet>
+</div>
 
