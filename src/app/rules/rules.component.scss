@@ -1,0 +1,355 @@
+@use "theme";
+
+:host {
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+  min-height: 100vh;
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+}
+
+.rules-container {
+  max-width: 1000px;
+  width: 100%;
+  
+  .rules-header {
+    text-align: center;
+    margin-bottom: 40px;
+    
+    h1 {
+      color: theme.$common-purple;
+      font-size: 3.5em;
+      font-family: 'Caveat', sans-serif;
+      font-weight: 700;
+      margin-bottom: 15px;
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+    }
+    
+    .subtitle {
+      font-size: 1.3em;
+      color: #666;
+      font-style: italic;
+      margin: 0;
+    }
+  }
+  
+  .rules-content {
+    .rule-section {
+      background: white;
+      border-radius: 15px;
+      padding: 30px;
+      margin-bottom: 30px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+      }
+      
+      .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 20px;
+        
+        .section-icon {
+          font-size: 2.5em;
+          margin-right: 15px;
+        }
+        
+        h2 {
+          color: theme.$common-purple;
+          font-size: 2em;
+          font-weight: 600;
+          margin: 0;
+        }
+      }
+      
+      .section-content {
+        p {
+          font-size: 1.1em;
+          line-height: 1.8;
+          color: #555;
+          margin-bottom: 20px;
+        }
+        
+        ul {
+          list-style: none;
+          padding: 0;
+          
+          li {
+            position: relative;
+            padding-left: 25px;
+            margin-bottom: 10px;
+            font-size: 1.05em;
+            color: #666;
+            
+            &:before {
+              content: "▶";
+              position: absolute;
+              left: 0;
+              color: theme.$common-purple;
+              font-size: 0.8em;
+            }
+          }
+        }
+      }
+    }
+  }
+  
+  // Système de points
+  .points-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    
+    .point-item {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+      text-align: center;
+      
+      .point-value {
+        display: block;
+        font-size: 1.8em;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+      
+      .point-desc {
+        font-size: 1em;
+        opacity: 0.9;
+      }
+    }
+  }
+  
+  // Contrôles du jeu
+  .controls-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    
+    .control-item {
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(135deg, #17a2b8 0%, #138496 100%);
+      color: white;
+      padding: 25px;
+      border-radius: 12px;
+      text-align: center;
+      transition: transform 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-3px);
+      }
+      
+      .control-key {
+        font-size: 1.5em;
+        font-weight: bold;
+        margin-bottom: 10px;
+        display: block;
+      }
+      
+      .control-desc {
+        font-size: 1em;
+        opacity: 0.95;
+        line-height: 1.4;
+      }
+    }
+  }
+  
+  // Catégories
+  .difficulty-levels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    
+    .difficulty-item {
+      padding: 25px;
+      border-radius: 12px;
+      border: 3px solid;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      
+      &:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+      }
+      
+      &.easy {
+        border-color: #28a745;
+        background: linear-gradient(135deg, #d4edda 0%, #c3e6cb 100%);
+      }
+      
+      &.medium {
+        border-color: #17a2b8;
+        background: linear-gradient(135deg, #d1ecf1 0%, #bee5eb 100%);
+      }
+      
+      &.hard {
+        border-color: #6f42c1;
+        background: linear-gradient(135deg, #e2d9f3 0%, #d1c4e9 100%);
+      }
+      
+      h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+        font-size: 1.4em;
+      }
+      
+      ul {
+        margin: 0;
+        
+        li {
+          margin-bottom: 8px;
+        }
+      }
+    }
+  }
+  
+  // Conseils et astuces
+  .tips-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 20px;
+    
+    .tip-item {
+      display: flex;
+      align-items: flex-start;
+      padding: 20px;
+      background: #f8f9fa;
+      border-radius: 10px;
+      border-left: 4px solid theme.$common-purple;
+      
+      .tip-icon {
+        font-size: 2em;
+        margin-right: 15px;
+        flex-shrink: 0;
+      }
+      
+      .tip-content {
+        h4 {
+          color: theme.$common-purple;
+          margin: 0 0 8px 0;
+          font-size: 1.2em;
+        }
+        
+        p {
+          margin: 0;
+          font-size: 0.95em;
+          color: #666;
+          line-height: 1.5;
+        }
+      }
+    }
+  }
+  
+  // Boutons d'action
+  .rules-actions {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-top: 40px;
+    flex-wrap: wrap;
+    
+    .btn {
+      padding: 15px 35px;
+      font-size: 1.2em;
+      font-weight: 600;
+      border-radius: 25px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      
+      span {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      
+      &.btn-primary {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        
+        &:hover {
+          transform: translateY(-3px);
+          box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+      }
+      
+      &.btn-secondary {
+        background: #6c757d;
+        color: white;
+        box-shadow: 0 6px 20px rgba(108, 117, 125, 0.3);
+        
+        &:hover {
+          background: #5a6268;
+          transform: translateY(-3px);
+          box-shadow: 0 10px 30px rgba(108, 117, 125, 0.4);
+        }
+      }
+    }
+  }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+  :host {
+    padding: 15px;
+  }
+  
+  .rules-container {
+    .rules-header h1 {
+      font-size: 2.8em;
+    }
+    
+    .rule-section {
+      padding: 20px;
+      
+      .section-header {
+        flex-direction: column;
+        text-align: center;
+        
+        .section-icon {
+          margin-right: 0;
+          margin-bottom: 10px;
+        }
+        
+        h2 {
+          font-size: 1.6em;
+        }
+      }
+    }
+    
+    .points-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .controls-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .difficulty-levels {
+      grid-template-columns: 1fr;
+    }
+    
+    .tips-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .rules-actions {
+      flex-direction: column;
+      align-items: center;
+      
+      .btn {
+        width: 100%;
+        max-width: 300px;
+        justify-content: center;
+      }
+    }
+  }
+}
