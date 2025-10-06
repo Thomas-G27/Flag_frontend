@@ -14,6 +14,7 @@ import { MatIconModule } from "@angular/material/icon"
 import { MatButtonModule } from "@angular/material/button"
 import { MajorsComponent } from "majors/majors.component"
 import { MajorStudentsComponent } from "majors/major-students/major-students.component"
+import { QuizComponent } from "quiz/quiz.component"
 import { HttpClientModule } from "@angular/common/http"
 
 @NgModule({
@@ -21,6 +22,7 @@ import { HttpClientModule } from "@angular/common/http"
     AppComponent,
     NavbarComponent,
     HomeComponent,
+    QuizComponent,
     StudentsComponent,
     StudentDetailsComponent,
     MajorsComponent,
