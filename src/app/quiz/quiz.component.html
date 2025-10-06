@@ -2,14 +2,24 @@
     <h1>{{ translations.quiz?.title || 'Quiz Drapeaux' }}</h1>
     <p>{{ translations.quiz?.welcome || 'Bienvenue dans le quiz des drapeaux ! Testez vos connaissances.' }}</p>
     <div class="quiz-content">
-        <div class="quiz-placeholder">
-            <p>{{ translations.quiz?.comingSoon || 'Le quiz sera bientôt disponible...' }}</p>
-            <input type="text" [placeholder]="translations.quiz?.placeholder || 'Tapez le nom du pays...'" class="country-input">
-            <div class="quiz-buttons">
-                <button class="btn btn-primary">{{ translations.quiz?.submit || 'Valider' }}</button>
-                <button class="btn btn-secondary">{{ translations.quiz?.skip || 'Passer' }}</button>
-            </div>
+        <div class="question">
+            <p>À quel pays appartient ce drapeau ?</p>
+            <img src="https://upload.wikimedia.org/wikipedia/en/a/a4/Flag_of_the_United_States.svg" alt="Drapeau" width="200">
         </div>
-        <button class="btn btn-back" routerLink="/">{{ translations.quiz?.backHome || 'Retour à l\'accueil' }}</button>
+        <form (ngSubmit)="submitAnswer()">
+            <input 
+                type="text" 
+                [(ngModel)]="userAnswer" 
+                name="country" 
+                placeholder="Entrez le nom du pays" 
+                required
+                class="form-control"
+            >
+            <button class="btn btn-primary" type="submit">Valider</button>
+        </form>
+        <div *ngIf="feedback" class="feedback">
+            {{ feedback }}
+        </div>
+        <button class="btn btn-secondary" routerLink="/">Retour à l'accueil</button>
     </div>
 </div>

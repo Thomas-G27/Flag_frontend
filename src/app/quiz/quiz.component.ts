@@ -8,23 +8,21 @@ import { Subscription } from "rxjs";
     styleUrls: ['./quiz.component.scss']
 })
 
-export class QuizComponent implements OnInit, OnDestroy {
-    currentLanguage: string = 'fr'
-    translations: any = {}
-    private languageSubscription!: Subscription
+export class QuizComponent implements OnInit {
+    userAnswer: string = '';
+    feedback: string = '';
 
-    constructor(private settingsService: SettingsService) { }
+    constructor() { }
 
-    ngOnInit(): void {
-        this.languageSubscription = this.settingsService.language$.subscribe(lang => {
-            this.currentLanguage = lang
-            this.translations = this.settingsService.getTranslation(lang)
-        })
-    }
+    ngOnInit(): void { }
 
-    ngOnDestroy(): void {
-        if (this.languageSubscription) {
-            this.languageSubscription.unsubscribe()
+    submitAnswer(): void {
+        // Ici tu pourras appeler ton backend plus tard
+        // Exemple de vérification locale temporaire :
+        if (this.userAnswer.trim().toLowerCase() === 'états-unis' || this.userAnswer.trim().toLowerCase() === 'etats-unis' || this.userAnswer.trim().toLowerCase() === 'usa') {
+            this.feedback = 'Bonne réponse !';
+        } else {
+            this.feedback = 'Mauvaise réponse, essaye encore.';
         }
     }
 }
