@@ -4,7 +4,7 @@ import { SettingsService } from "../services/settings.service"
 import { Subscription } from "rxjs"
 
 @Component({
-  selector: "navbar",
+  selector: "navbar", 
   templateUrl: "./navbar.component.html",
   styleUrls: ["./navbar.component.scss"],
 })
@@ -31,7 +31,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   private updateLinks(): void {
     const translations = this.settingsService.getTranslation(this.currentLanguage)
     this.links = [
-      { name: ` ${translations.nav.home}`, href: "" },
+      { name: ` ${translations.nav.home}`, href: "home" },
       { name: ` ${translations.nav.quiz}`, href: "quiz" },
       { name: ` ${translations.nav.rules}`, href: "rules" }
     ]

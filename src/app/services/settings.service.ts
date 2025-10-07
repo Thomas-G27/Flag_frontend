@@ -63,7 +63,13 @@ export class SettingsService {
           description1: 'Découvrez les drapeaux de différents pays et apprenez en vous amusant.',
           description2: 'Êtes-vous prêt à relever le défi ?',
           playButton: 'JOUER',
-          rulesButton: 'RÈGLES'
+          rulesButton: 'RÈGLES',
+          worldFlags: 'Drapeaux du Monde',
+          worldFlagsDescription: 'Plus de 100 drapeaux de pays différents',
+          scores: 'Scores',
+          scoresDescription: 'Suivez vos performances et battez vos records',
+          challenges: 'Défis',
+          challengesDescription: 'Différents niveaux de difficulté'
         },
         rules: {
           title: 'Règles du Quiz Drapeaux',
@@ -150,7 +156,13 @@ export class SettingsService {
           description1: 'Discover flags from different countries and learn while having fun.',
           description2: 'Are you ready to take on the challenge?',
           playButton: 'PLAY',
-          rulesButton: 'RULES'
+          rulesButton: 'RULES',
+          worldFlags: 'World Flags',
+          worldFlagsDescription: 'Over 100 flags from different countries',
+          scores: 'Scores',
+          scoresDescription: 'Track your performance and beat your records',
+          challenges: 'Challenges',
+          challengesDescription: 'Different levels of difficulty'
         },
         rules: {
           title: 'Flag Quiz Rules',
@@ -237,7 +249,14 @@ export class SettingsService {
           description1: 'Descubre las banderas de diferentes países y aprende divirtiéndote.',
           description2: '¿Estás listo para aceptar el desafío?',
           playButton: 'JUGAR',
-          rulesButton: 'REGLAS'
+          rulesButton: 'REGLAS',
+          worldFlags: 'Banderas del Mundo',
+          worldFlagsDescription: 'Más de 100 banderas de diferentes países',
+          scores: 'Puntuaciones',
+          scoresDescription: 'Sigue tu rendimiento y supera tus récords',
+          challenges: 'Desafíos',
+          challengesDescription: 'Diferentes niveles de dificultad'
+          
         },
         rules: {
           title: 'Reglas del Quiz de Banderas',
