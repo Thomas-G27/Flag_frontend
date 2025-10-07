@@ -13,6 +13,7 @@ import { MatButtonModule } from "@angular/material/button"
 import { QuizComponent } from "quiz/quiz.component"
 import { RulesComponent } from "rules/rules.component"
 import { SettingsComponent } from "./settings/settings.component"
+import { QuizChoiceComponent } from "./quiz_choice/quiz_choice.component"
 import { HttpClientModule } from "@angular/common/http"
 
 @NgModule({
@@ -23,6 +24,7 @@ import { HttpClientModule } from "@angular/common/http"
     QuizComponent,
     RulesComponent,
     SettingsComponent,
+    QuizChoiceComponent,
   ],
   imports: [
     BrowserModule,
