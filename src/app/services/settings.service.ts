@@ -208,7 +208,11 @@ export class SettingsService {
             continent: 'Continent',
             save: 'Créer le quiz',
             cancel: 'Annuler'
-          }
+          },
+          quizCreated: 'Quiz créé avec succès !',
+          continents: 'Continents',
+          languages: 'Langues',
+          formErrors: 'Erreurs dans le formulaire'
         },
         quiz_choice: {
           title: 'Choisissez votre Quiz',
@@ -382,7 +386,11 @@ export class SettingsService {
             continent: 'Continent',
             save: 'Create quiz',
             cancel: 'Cancel'
-          }
+          },
+          quizCreated: 'Quiz created successfully!',
+          continents: 'Continents',
+          languages: 'Languages',
+          formErrors: 'Form errors'
         },
         quiz_choice: {
           title: 'Choose your Quiz',
@@ -557,7 +565,11 @@ export class SettingsService {
             continent: 'Continente',
             save: 'Crear quiz',
             cancel: 'Cancelar'
-          }
+          },
+          quizCreated: '¡Quiz creado exitosamente!',
+          continents: 'Continentes',
+          languages: 'Idiomas',
+          formErrors: 'Errores en el formulario'
         },
         quiz_choice: {
           title: 'Elige tu Quiz',

@@ -1,6 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { AdminService } from '../services/admin.service';
+import { SettingsService } from '../services/settings.service';
+import { Subscription } from 'rxjs';
 // import { TranslateService } from '@ngx-translate/core';
 
 interface QuizQuestion {
@@ -34,14 +36,23 @@ export class QuizComponent implements OnInit, OnDestroy {
     translations: any = {};
     feedback = '';
     quizFinished = false;
+    currentLanguage: string = 'fr';
+    private languageSubscription!: Subscription;
 
     constructor(
         private router: Router,
         private route: ActivatedRoute,
-        private adminService: AdminService
+        private adminService: AdminService,
+        private settingsService: SettingsService
     ) {}
 
     ngOnInit(): void {
+        // S'abonner aux changements de langue
+        this.languageSubscription = this.settingsService.language$.subscribe(lang => {
+            this.currentLanguage = lang;
+            this.loadTranslations();
+        });
+        
         this.loadTranslations();
         this.detectQuizType();
         this.loadQuizData();
@@ -49,19 +60,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     }
 
     loadTranslations(): void {
-        // Temporary - will be replaced with actual translations later
-        this.translations = {
-            'quiz.restart': 'Recommencer',
-            'quiz.home': 'Accueil',
-            'quiz.score': 'Score',
-            'quiz.timeLeft': 'Temps restant',
-            'quiz.question': 'Question',
-            'quiz.enterFlag': 'Entrez le nom du pays',
-            'quiz.submit': 'Valider',
-            'quiz.correct': 'Correct',
-            'quiz.incorrect': 'Incorrect',
-            'quiz.finished': 'Quiz terminé'
-        };
+        this.translations = this.settingsService.getTranslation(this.currentLanguage);
     }
 
     detectQuizType(): void {
@@ -72,7 +71,6 @@ export class QuizComponent implements OnInit, OnDestroy {
         // Vérifier si c'est un quiz créé par l'utilisateur
         if (typeFromUrl.startsWith('custom-')) {
             this.quizType = typeFromUrl;
-            console.log('Quiz créé détecté:', typeFromUrl);
             return;
         }
 
@@ -423,6 +421,9 @@ export class QuizComponent implements OnInit, OnDestroy {
     ngOnDestroy(): void {
         if (this.timerInterval) {
             clearInterval(this.timerInterval);
+        }
+        if (this.languageSubscription) {
+            this.languageSubscription.unsubscribe();
         }
     }
 

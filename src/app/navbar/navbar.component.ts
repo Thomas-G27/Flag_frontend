@@ -1,5 +1,5 @@
 ﻿import { Component, OnInit, OnDestroy } from "@angular/core"
-import { Link } from "models/links.model"
+import { Link } from "../models/links.model"
 import { SettingsService } from "../services/settings.service"
 import { Subscription } from "rxjs"
 

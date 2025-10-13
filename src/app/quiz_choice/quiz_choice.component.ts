@@ -1,7 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Link } from 'models/links.model';
-import { SettingsService } from 'services/settings.service';
-import { AdminService, Quiz } from 'services/admin.service';
+import { SettingsService } from '../services/settings.service';
+import { AdminService, Quiz } from '../services/admin.service';
 import { Subscription } from 'rxjs';
 
 
@@ -35,11 +34,7 @@ export class QuizChoiceComponent implements OnInit, OnDestroy {
 
         // S'abonner aux quiz disponibles
         this.quizzesSubscription = this.adminService.quizzes$.subscribe(quizzes => {
-            console.log('QuizChoiceComponent: Quiz reçus de AdminService:', quizzes);
             this.availableQuizzes = this.adminService.getEnabledQuizzes();
-            console.log('QuizChoiceComponent: Quiz activés:', this.availableQuizzes);
-            // Debug pour voir les quiz disponibles
-            this.debugQuizzes();
         });
 
         // S'abonner au mode administrateur
@@ -111,43 +106,24 @@ export class QuizChoiceComponent implements OnInit, OnDestroy {
     }
 
     getQuickQuizzes(): Quiz[] {
-        const quickQuizzes = this.availableQuizzes.filter(quiz => 
+        return this.availableQuizzes.filter(quiz => 
             quiz.id === 'world' ||
             quiz.id === 'europe-quick' || 
             quiz.id === 'francophone-quick'
         );
-        console.log('getQuickQuizzes() retourne:', quickQuizzes);
-        return quickQuizzes;
     }
 
     getCustomQuizzes(): Quiz[] {
-        const customQuizzes = this.availableQuizzes.filter(quiz => 
+        return this.availableQuizzes.filter(quiz => 
             quiz.id === 'continent-custom' || 
             quiz.id === 'language-custom'
         );
-        console.log('getCustomQuizzes() retourne:', customQuizzes);
-        return customQuizzes;
     }
 
     getUserCreatedQuizzes(): Quiz[] {
-        const userQuizzes = this.availableQuizzes.filter(quiz => 
+        return this.availableQuizzes.filter(quiz => 
             quiz.id.startsWith('custom-')
         );
-        console.log('getUserCreatedQuizzes() retourne:', userQuizzes);
-        return userQuizzes;
-    }
-
-    // Debug method - let's see what quizzes are actually available
-    debugQuizzes(): void {
-        console.log('Available quizzes:', this.availableQuizzes);
-        console.log('Quick quizzes:', this.getQuickQuizzes());
-        console.log('Custom quizzes:', this.getCustomQuizzes());
-    }
-
-    // Force reset pour debug
-    forceResetQuizzes(): void {
-        this.adminService.resetToDefaultQuizzes();
-        console.log('Quiz forcément réinitialisés !');
     }
 
     showQuizManager: boolean = false;
@@ -187,18 +163,18 @@ export class QuizChoiceComponent implements OnInit, OnDestroy {
     }
 
     createNewQuiz(): void {
-        console.log('Création quiz avec données:', this.newQuizData);
         const validation = this.adminService.validateQuizConfig(this.newQuizData);
-        console.log('Résultat validation:', validation);
         
         if (validation.valid) {
             this.adminService.addNewQuiz(this.newQuizData);
             this.resetForm();
             this.closeQuizCreator();
-            alert(`Quiz "${this.newQuizData.name}" créé avec succès !\nContinents: ${this.newQuizData.continents.join(', ')}\nLangues: ${this.newQuizData.languages.join(', ')}`);
+            const successMsg = this.translations?.admin?.quizCreated || `Quiz "${this.newQuizData.name}" créé avec succès !`;
+            alert(successMsg + `\n${this.translations?.admin?.continents || 'Continents'}: ${this.newQuizData.continents.join(', ')}\n${this.translations?.admin?.languages || 'Langues'}: ${this.newQuizData.languages.join(', ')}`);
         } else {
             console.error('Erreurs de validation:', validation.errors);
-            alert('Erreurs dans le formulaire :\n' + (validation.errors || []).join('\n'));
+            const errorMsg = this.translations?.admin?.formErrors || 'Erreurs dans le formulaire';
+            alert(errorMsg + ':\n' + (validation.errors || []).join('\n'));
         }
     }
 
@@ -240,7 +216,6 @@ export class QuizChoiceComponent implements OnInit, OnDestroy {
     deleteUserQuiz(quizId: string): void {
         if (confirm('Êtes-vous sûr de vouloir supprimer ce quiz ?')) {
             this.adminService.removeQuiz(quizId);
-            console.log('Quiz supprimé:', quizId);
         }
     }
 
