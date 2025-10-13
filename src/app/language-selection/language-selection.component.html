@@ -1,0 +1,83 @@
+<div class="container">
+  <!-- Header -->
+  <div class="header-section">
+    <button class="back-btn" (click)="goBack()">
+      <i class="bi bi-arrow-left"></i>
+    </button>
+    <h1 class="title">{{ translations?.language_selection?.title || 'Sélection des langues' }}</h1>
+  </div>
+
+  <!-- Description -->
+  <div class="description">
+    <p>{{ translations?.language_selection?.description || 'Choisissez les langues parlées dans les pays pour votre quiz' }}</p>
+  </div>
+
+  <!-- Action buttons -->
+  <div class="action-buttons">
+    <button class="btn btn-outline" (click)="selectAll()">
+      {{ translations?.language_selection?.selectAll || 'Tout sélectionner' }}
+    </button>
+    <button class="btn btn-outline" (click)="clearAll()">
+      {{ translations?.language_selection?.clearAll || 'Tout désélectionner' }}
+    </button>
+  </div>
+
+  <!-- Languages Grid -->
+  <div class="languages-grid">
+    <div 
+      *ngFor="let language of languages" 
+      class="language-card"
+      [class.selected]="isLanguageSelected(language.id)"
+      [style.border-color]="isLanguageSelected(language.id) ? language.color : 'var(--bs-border-color)'"
+      (click)="toggleLanguage(language.id)">
+      
+      <div class="language-icon" [style.color]="language.color">
+        {{ language.icon }}
+      </div>
+      
+      <h3 class="language-name">{{ getLanguageName(language) }}</h3>
+      <div class="native-name">{{ language.nativeName }}</div>
+      
+      <div class="language-info">
+        <div class="country-count">
+          {{ language.countries }} {{ translations?.language_selection?.countries || 'pays' }}
+        </div>
+        
+        <div class="regions">
+          <span class="region-label">{{ translations?.language_selection?.regions || 'Régions:' }}</span>
+          <div class="region-tags">
+            <span *ngFor="let region of language.regions" class="region-tag">
+              {{ region }}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="selection-indicator" *ngIf="isLanguageSelected(language.id)">
+        <i class="bi bi-check-circle-fill" [style.color]="language.color"></i>
+      </div>
+    </div>
+  </div>
+
+  <!-- Selection Summary -->
+  <div class="selection-summary" *ngIf="selectedLanguages.length > 0">
+    <div class="summary-content">
+      <i class="bi bi-translate text-primary"></i>
+      <span>
+        {{ selectedLanguages.length }} 
+        {{ translations?.language_selection?.languagesSelected || 'langues sélectionnées' }}
+      </span>
+    </div>
+  </div>
+
+  <!-- Start Quiz Button -->
+  <div class="start-section">
+    <button 
+      class="btn btn-primary btn-lg start-btn"
+      [disabled]="selectedLanguages.length === 0"
+      (click)="startQuiz()">
+      <i class="bi bi-play-fill"></i>
+      {{ translations?.language_selection?.startQuiz || 'Commencer le quiz' }}
+    </button>
+  </div>
+</div>

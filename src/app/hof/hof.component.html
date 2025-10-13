@@ -1,0 +1,112 @@
+<div class="hof-container" [class.dark-theme]="currentTheme === 'dark'">
+  <div class="hof-header">
+    <button class="back-button" (click)="goHome()" [title]="translations?.hof?.backToHome || 'Retour à l\'accueil'">
+      <i class="fas fa-arrow-left"></i>
+      {{ translations?.hof?.backButton || 'Retour' }}
+    </button>
+    
+    <h1 class="hof-title">
+      <i class="fas fa-trophy"></i>
+      {{ translations?.hof?.title || 'Hall of Fame' }}
+    </h1>
+    
+    <div class="header-spacer"></div>
+  </div>
+
+  <div class="filter-section">
+    <label class="filter-label">{{ translations?.hof?.filterBy || 'Filtrer par quiz :' }}</label>
+    <select 
+      class="quiz-filter" 
+      [value]="selectedQuizType" 
+      (change)="handleSelectChange($event)"
+    >
+      <option value="all">{{ translations?.hof?.allQuizzes || 'Tous les quiz' }}</option>
+      <option value="world">{{ translations?.hof?.quizTypes?.world || 'Monde' }}</option>
+      <option value="europe">{{ translations?.hof?.quizTypes?.europe || 'Europe' }}</option>
+      <option value="africa">{{ translations?.hof?.quizTypes?.africa || 'Afrique' }}</option>
+    </select>
+  </div>
+
+  <div class="scores-section" *ngIf="filteredScores.length > 0; else noScores">
+    <div class="table-container">
+      <table class="scores-table">
+        <thead>
+          <tr>
+            <th>{{ translations?.hof?.rank || 'Rang' }}</th>
+            <th>{{ translations?.hof?.player || 'Joueur' }}</th>
+            <th>{{ translations?.hof?.score || 'Score' }}</th>
+            <th>{{ translations?.hof?.percentage || 'Pourcentage' }}</th>
+            <th>{{ translations?.hof?.quizType || 'Type de Quiz' }}</th>
+            <th>{{ translations?.hof?.time || 'Temps' }}</th>
+            <th>{{ translations?.hof?.date || 'Date' }}</th>
+            <th *ngIf="isAdministrator">{{ translations?.admin?.title || 'Actions' }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr 
+            *ngFor="let score of filteredScores; let i = index" 
+            class="score-row"
+            [class.podium-first]="i === 0"
+            [class.podium-second]="i === 1"
+            [class.podium-third]="i === 2"
+          >
+            <td class="rank-cell">
+              <span class="rank-badge">{{ getRankIcon(i) }}</span>
+            </td>
+            <td class="player-cell">
+              <strong>{{ score.playerName }}</strong>
+            </td>
+            <td class="score-cell">
+              <span class="score-value">{{ score.score }}/{{ score.totalQuestions }}</span>
+            </td>
+            <td class="percentage-cell">
+              <div class="percentage-bar">
+                <div 
+                  class="percentage-fill" 
+                  [style.width.%]="getScorePercentage(score)"
+                  [class.excellent]="getScorePercentage(score) >= 90"
+                  [class.good]="getScorePercentage(score) >= 70 && getScorePercentage(score) < 90"
+                  [class.average]="getScorePercentage(score) >= 50 && getScorePercentage(score) < 70"
+                  [class.poor]="getScorePercentage(score) < 50"
+                ></div>
+                <span class="percentage-text">{{ getScorePercentage(score) }}%</span>
+              </div>
+            </td>
+            <td class="quiz-type-cell">
+              <span class="quiz-badge" [class]="'quiz-' + score.quizType">
+                {{ getQuizTypeLabel(score.quizType) }}
+              </span>
+            </td>
+            <td class="time-cell">
+              <i class="fas fa-clock"></i>
+              {{ formatTime(score.timeTaken) }}
+            </td>
+            <td class="date-cell">
+              {{ formatDate(score.date) }}
+            </td>
+            <td class="admin-actions" *ngIf="isAdministrator">
+              <button 
+                class="remove-score-btn" 
+                (click)="removeScore(score.id)"
+                [title]="translations?.admin?.removeScore || 'Supprimer ce score'">
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <ng-template #noScores>
+    <div class="no-scores">
+      <i class="fas fa-trophy fa-3x"></i>
+      <h3>{{ translations?.hof?.noScores || 'Aucun score enregistré' }}</h3>
+      <p>{{ translations?.hof?.noScoresMessage || 'Jouez à un quiz pour voir vos scores ici !' }}</p>
+      <button class="play-button" (click)="goToQuizChoice()">
+        <i class="fas fa-play"></i>
+        {{ translations?.hof?.playNow || 'Jouer maintenant' }}
+      </button>
+    </div>
+  </ng-template>
+</div>

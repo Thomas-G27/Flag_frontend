@@ -10,6 +10,8 @@ export class SettingsComponent implements OnInit {
   isOpen = false
   currentLanguage: string = 'fr'
   currentTheme: string = 'light'
+  isAdministrator: boolean = false
+  translations: any = {}
 
   languages = [
     { code: 'fr', name: 'Français', flag: '🇫🇷' },
@@ -22,6 +24,8 @@ export class SettingsComponent implements OnInit {
   ngOnInit(): void {
     this.currentLanguage = this.settingsService.getCurrentLanguage()
     this.currentTheme = this.settingsService.getCurrentTheme()
+    this.isAdministrator = this.settingsService.getAdministratorMode()
+    this.translations = this.settingsService.getTranslation(this.currentLanguage)
   }
 
   toggleSettings(): void {
@@ -35,11 +39,17 @@ export class SettingsComponent implements OnInit {
   changeLanguage(languageCode: string): void {
     this.currentLanguage = languageCode
     this.settingsService.setLanguage(languageCode)
+    this.translations = this.settingsService.getTranslation(languageCode)
     this.closeSettings()
   }
 
   toggleTheme(): void {
     this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light'
     this.settingsService.setTheme(this.currentTheme)
+  }
+
+  toggleAdministratorMode(): void {
+    this.isAdministrator = !this.isAdministrator
+    this.settingsService.setAdministratorMode(this.isAdministrator)
   }
 }

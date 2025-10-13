@@ -309,6 +309,97 @@
   }
 }
 
+// Section Administrateur
+.admin-toggle {
+  display: flex;
+  justify-content: center;
+}
+
+.admin-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 10px;
+  border-radius: 8px;
+  transition: all 0.2s ease;
+  
+  &:hover {
+    background: #f8f9fa;
+  }
+}
+
+.admin-slider {
+  width: 60px;
+  height: 30px;
+  background: #e2e8f0;
+  border-radius: 15px;
+  position: relative;
+  transition: all 0.3s ease;
+  
+  &.enabled {
+    background: linear-gradient(135deg, #ff6b35, #f7931e);
+  }
+}
+
+.admin-indicator {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 26px;
+  height: 26px;
+  background: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  
+  .admin-slider.enabled & {
+    transform: translateX(30px);
+  }
+  
+  mat-icon {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+    color: #4a5568;
+  }
+  
+  .admin-slider.enabled & mat-icon {
+    color: #ff6b35;
+  }
+}
+
+.admin-label {
+  font-size: 14px;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+// Mode sombre pour l'admin
+:host-context(.dark-theme) {
+  .admin-btn:hover {
+    background: #4a5568;
+  }
+  
+  .admin-label {
+    color: #a0aec0;
+  }
+  
+  .admin-slider {
+    background: #4a5568;
+    
+    &.enabled {
+      background: linear-gradient(135deg, #ff6b35, #f7931e);
+    }
+  }
+}
+
 // Responsive
 @media (max-width: 768px) {
   .settings-container {

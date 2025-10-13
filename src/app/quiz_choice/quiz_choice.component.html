@@ -4,22 +4,219 @@
         <p class="subtitle">Sélectionnez le type de quiz que vous souhaitez jouer</p>
     </div>
 
-    <div class="quiz-options">
-        <div *ngFor="let quiz of quizTypes" class="quiz-card" [style.--accent-color]="quiz.color">
-            <div class="quiz-icon">{{ quiz.icon }}</div>
-            <h3 class="quiz-name">{{ quiz.name }}</h3>
-            <p class="quiz-description">{{ quiz.description }}</p>
-            
-            <a [routerLink]="quiz.href" class="quiz-button" [style.background-color]="quiz.color">
-                <span>Commencer</span>
-                <span class="arrow">→</span>
-            </a>
+    <!-- Section Quiz Rapides -->
+    <div class="quiz-section">
+        <h2 class="section-title">⚡ Quiz Rapides</h2>
+        <p class="section-subtitle">Commencez immédiatement avec nos sélections populaires</p>
+        
+        <div class="quiz-options quick-quizzes">
+            <div *ngFor="let quiz of getQuickQuizzes()" class="quiz-card quick" [style.--accent-color]="getQuizColor(quiz.id)">
+                <div class="quiz-icon">{{ getQuizIcon(quiz.id) }}</div>
+                <h3 class="quiz-name">{{ quiz.name }}</h3>
+                <p class="quiz-description">{{ getQuizDescription(quiz) }}</p>
+                
+                <a [routerLink]="quiz.route" class="quiz-button" [style.background-color]="getQuizColor(quiz.id)">
+                    <span>{{ translations?.quiz_choice?.start || 'Commencer' }}</span>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Quiz Personnalisés -->
+    <div class="quiz-section">
+        <h2 class="section-title">🎨 Quiz Personnalisés</h2>
+        <p class="section-subtitle">Créez votre quiz sur mesure en choisissant vos préférences</p>
+        
+        <div class="quiz-options custom-quizzes">
+            <div *ngFor="let quiz of getCustomQuizzes()" class="quiz-card custom" [style.--accent-color]="getQuizColor(quiz.id)">
+                <div class="quiz-icon">{{ getQuizIcon(quiz.id) }}</div>
+                <h3 class="quiz-name">{{ quiz.name }}</h3>
+                <p class="quiz-description">{{ getQuizDescription(quiz) }}</p>
+                
+                <a [routerLink]="quiz.route" class="quiz-button" [style.background-color]="getQuizColor(quiz.id)">
+                    <span>{{ translations?.quiz_choice?.customize || 'Personnaliser' }}</span>
+                    <span class="arrow">→</span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Quiz Créés -->
+    <div *ngIf="getUserCreatedQuizzes().length > 0" class="quiz-section">
+        <h2 class="section-title">📝 Mes Quiz Créés</h2>
+        <p class="section-subtitle">Vos quiz personnalisés créés</p>
+        
+        <div class="quiz-options user-created-quizzes">
+            <div *ngFor="let quiz of getUserCreatedQuizzes()" class="quiz-card user-created" [style.--accent-color]="getQuizColor(quiz.id)">
+                <div class="quiz-icon">{{ getQuizIcon(quiz.id) }}</div>
+                <h3 class="quiz-name">{{ quiz.name }}</h3>
+                <p class="quiz-description">{{ getQuizDescription(quiz) }}</p>
+                
+                <div class="quiz-actions">
+                    <a [routerLink]="quiz.route" class="quiz-button" [style.background-color]="getQuizColor(quiz.id)">
+                        <span>{{ translations?.quiz_choice?.play || 'Jouer' }}</span>
+                        <span class="arrow">→</span>
+                    </a>
+                    <button *ngIf="isAdministrator" class="delete-quiz-btn" (click)="deleteUserQuiz(quiz.id)" title="Supprimer ce quiz">
+                        🗑️
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Section Admin -->
+    <div *ngIf="isAdministrator" class="admin-section">
+            <div class="admin-quiz-card manage-quizzes">
+                <div class="admin-icon">⚙️</div>
+                <h3 class="admin-title">{{ translations?.admin?.quizManagement || 'Gérer les Quiz' }}</h3>
+                <p class="admin-description">{{ translations?.admin?.manageDescription || 'Activer/désactiver les quiz disponibles' }}</p>
+                
+                <button class="admin-button" (click)="openQuizManager()">
+                    <span>{{ translations?.admin?.manageQuizzes || 'Gérer les Quiz' }}</span>
+                    <span class="arrow">⚙️</span>
+                </button>
+            </div>
+
+            <div class="admin-quiz-card create-quiz">
+                <div class="admin-icon">➕</div>
+                <h3 class="admin-title">{{ translations?.admin?.createNewQuiz || 'Créer un Quiz' }}</h3>
+                <p class="admin-description">{{ translations?.admin?.createDescription || 'Ajouter un nouveau quiz personnalisé' }}</p>
+                
+                <button class="admin-button" (click)="openQuizCreator()">
+                    <span>{{ translations?.admin?.addNewQuiz || 'Créer un Quiz' }}</span>
+                    <span class="arrow">+</span>
+                </button>
+            </div>
+    </div>
+
+    <!-- Modal Gestionnaire de Quiz -->
+    <div *ngIf="showQuizManager && isAdministrator" class="admin-overlay">
+        <div class="admin-modal">
+            <div class="admin-header">
+                <h2>{{ translations?.admin?.quizManagement || 'Gestion des Quiz' }}</h2>
+                <button class="close-admin" (click)="closeQuizManager()">✕</button>
+            </div>
+
+            <div class="admin-content">
+                <div class="existing-quizzes">
+                    <h3>{{ translations?.admin?.availableQuizzes || 'Quiz Disponibles' }}</h3>
+                    <div class="quiz-list">
+                        <div *ngFor="let quiz of adminService.getAllQuizzes()" class="quiz-admin-item">
+                            <div class="quiz-info">
+                                <span class="quiz-name-admin">{{ quiz.name }}</span>
+                                <span class="quiz-details">{{ quiz.questions }} questions - {{ quiz.continent }}</span>
+                            </div>
+                            <div class="quiz-controls">
+                                <button 
+                                    class="toggle-quiz"
+                                    [class.enabled]="quiz.enabled"
+                                    (click)="toggleQuiz(quiz.id)">
+                                    {{ quiz.enabled ? (translations?.admin?.disableQuiz || 'Désactiver') : (translations?.admin?.enableQuiz || 'Activer') }}
+                                </button>
+                                <button class="remove-quiz" (click)="removeQuiz(quiz.id)">
+                                    🗑️
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Créateur de Quiz -->
+    <div *ngIf="showQuizCreator && isAdministrator" class="admin-overlay">
+        <div class="admin-modal quiz-creator-modal">
+            <div class="admin-header">
+                <h2>{{ translations?.admin?.newQuizForm?.title || 'Créer un nouveau quiz' }}</h2>
+                <button class="close-admin" (click)="closeQuizCreator()">✕</button>
+            </div>
+
+            <div class="admin-content">
+                <form (ngSubmit)="createNewQuiz()" #quizForm="ngForm">
+                    <div class="form-group">
+                        <label>{{ translations?.admin?.newQuizForm?.name || 'Nom du quiz' }}</label>
+                        <input 
+                            type="text" 
+                            [(ngModel)]="newQuizData.name" 
+                            name="name" 
+                            required 
+                            class="form-input"
+                            placeholder="Ex: Quiz Asie">
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>{{ translations?.admin?.newQuizForm?.questions || 'Nombre de questions' }}</label>
+                            <input 
+                                type="number" 
+                                [(ngModel)]="newQuizData.questions" 
+                                name="questions" 
+                                min="5" 
+                                max="50" 
+                                required 
+                                class="form-input">
+                        </div>
+
+                        <div class="form-group">
+                            <label>{{ translations?.admin?.newQuizForm?.continent || 'Continents' }} (sélection multiple)</label>
+                            <div class="continent-checkboxes">
+                                <div *ngFor="let continent of adminService.getAvailableContinents()" class="continent-option">
+                                    <input 
+                                        type="checkbox"
+                                        [id]="'cont-' + continent"
+                                        [checked]="isContinentSelected(continent)"
+                                        (change)="toggleContinent(continent)"
+                                        class="continent-checkbox">
+                                    <label [for]="'cont-' + continent" class="continent-label">
+                                        {{ continent }}
+                                    </label>
+                                </div>
+                            </div>
+                            <small class="form-hint">
+                                Sélectionnés: {{ newQuizData.continents.join(', ') || 'Aucun continent sélectionné' }}
+                            </small>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>{{ translations?.admin?.newQuizForm?.languages || 'Langues' }} (sélection multiple)</label>
+                        <div class="language-checkboxes">
+                            <div *ngFor="let language of adminService.getAvailableLanguages()" class="language-option">
+                                <input 
+                                    type="checkbox"
+                                    [id]="'lang-' + language"
+                                    [checked]="isLanguageSelected(language)"
+                                    (change)="toggleLanguage(language)"
+                                    class="language-checkbox">
+                                <label [for]="'lang-' + language" class="language-label">
+                                    {{ language }}
+                                </label>
+                            </div>
+                        </div>
+                        <small class="form-hint">
+                            Sélectionnés: {{ newQuizData.languages.join(', ') || 'Aucune langue sélectionnée' }}
+                        </small>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="submit" class="create-quiz-btn" [disabled]="newQuizData.languages.length === 0 || newQuizData.continents.length === 0">
+                            {{ translations?.admin?.newQuizForm?.save || 'Créer le quiz' }}
+                        </button>
+                        <button type="button" class="cancel-btn" (click)="closeQuizCreator()">
+                            {{ translations?.admin?.newQuizForm?.cancel || 'Annuler' }}
+                        </button>
+                    </div>
+                </form>
+            </div>
         </div>
     </div>
 
     <div class="back-section">
         <a routerLink="/home" class="back-button">
-            ← Retour à l'accueil
+            ← {{ translations?.quiz_choice?.backHome || 'Retour à l\'accueil' }}
         </a>
     </div>
 </div>

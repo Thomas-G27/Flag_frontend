@@ -14,6 +14,9 @@ import { QuizComponent } from "quiz/quiz.component"
 import { RulesComponent } from "rules/rules.component"
 import { SettingsComponent } from "./settings/settings.component"
 import { QuizChoiceComponent } from "./quiz_choice/quiz_choice.component"
+import { HofComponent } from "./hof/hof.component"
+import { ContinentSelectionComponent } from "./continent-selection/continent-selection.component"
+import { LanguageSelectionComponent } from "./language-selection/language-selection.component"
 import { HttpClientModule } from "@angular/common/http"
 
 @NgModule({
@@ -25,6 +28,9 @@ import { HttpClientModule } from "@angular/common/http"
     RulesComponent,
     SettingsComponent,
     QuizChoiceComponent,
+    HofComponent,
+    ContinentSelectionComponent,
+    LanguageSelectionComponent,
   ],
   imports: [
     BrowserModule,

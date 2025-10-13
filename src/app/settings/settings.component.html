@@ -51,6 +51,26 @@
         </button>
       </div>
     </div>
+
+    <!-- Section Administrateur -->
+    <div class="settings-section">
+      <div class="section-title">
+        <mat-icon>admin_panel_settings</mat-icon>
+        <span>{{ translations?.settings?.administrator || 'Mode Administrateur' }}</span>
+      </div>
+      <div class="admin-toggle">
+        <button class="admin-btn" (click)="toggleAdministratorMode()">
+          <div class="admin-slider" [class.enabled]="isAdministrator">
+            <div class="admin-indicator">
+              <mat-icon>{{ isAdministrator ? 'verified_user' : 'person' }}</mat-icon>
+            </div>
+          </div>
+          <span class="admin-label">
+            {{ isAdministrator ? (translations?.settings?.adminEnabled || 'Activé') : (translations?.settings?.adminDisabled || 'Désactivé') }}
+          </span>
+        </button>
+      </div>
+    </div>
   </div>
 
   <!-- Overlay pour fermer en cliquant à l'extérieur -->

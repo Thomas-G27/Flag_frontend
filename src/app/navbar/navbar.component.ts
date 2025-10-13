@@ -33,7 +33,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     this.links = [
       { name: ` ${translations.nav.home}`, href: "home" },
       { name: ` ${translations.nav.quiz}`, href: "quiz_choice" },
-      { name: ` ${translations.nav.rules}`, href: "rules" }
+      { name: ` ${translations.nav.rules}`, href: "rules" },
+      { name: ` ${translations.nav.hof}`, href: "hof" }
     ]
   }
 }

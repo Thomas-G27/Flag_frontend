@@ -7,17 +7,21 @@ import { BehaviorSubject } from "rxjs"
 export class SettingsService {
   private currentLanguage = new BehaviorSubject<string>('fr')
   private currentTheme = new BehaviorSubject<string>('light')
+  private isAdministrator = new BehaviorSubject<boolean>(false)
 
   public language$ = this.currentLanguage.asObservable()
   public theme$ = this.currentTheme.asObservable()
+  public isAdministrator$ = this.isAdministrator.asObservable()
 
   constructor() {
     // Charger les préférences sauvegardées
     const savedLanguage = localStorage.getItem('quiz-language') || 'fr'
     const savedTheme = localStorage.getItem('quiz-theme') || 'light'
+    const savedAdminMode = localStorage.getItem('quiz-admin-mode') === 'true'
     
     this.setLanguage(savedLanguage)
     this.setTheme(savedTheme)
+    this.setAdministratorMode(savedAdminMode)
   }
 
   getCurrentLanguage(): string {
@@ -26,6 +30,10 @@ export class SettingsService {
 
   getCurrentTheme(): string {
     return this.currentTheme.value
+  }
+
+  getAdministratorMode(): boolean {
+    return this.isAdministrator.value
   }
 
   setLanguage(language: string): void {
@@ -38,6 +46,11 @@ export class SettingsService {
     this.currentTheme.next(theme)
     localStorage.setItem('quiz-theme', theme)
     this.updateDocumentTheme(theme)
+  }
+
+  setAdministratorMode(isAdmin: boolean): void {
+    this.isAdministrator.next(isAdmin)
+    localStorage.setItem('quiz-admin-mode', isAdmin.toString())
   }
 
   private updateDocumentLanguage(language: string): void {
@@ -55,7 +68,8 @@ export class SettingsService {
         nav: {
           home: 'Accueil',
           quiz: 'Quiz Drapeaux',
-          rules: 'Règles'
+          rules: 'Règles',
+          hof: 'Hall of Fame'
         },
         home: {
           title: 'Quiz des Drapeaux',
@@ -120,8 +134,8 @@ export class SettingsService {
           tipLearn: 'Apprenez en jouant',
           tipLearnDesc: 'Chaque drapeau vu est une connaissance acquise',
           startQuiz: 'Commencer le Quiz',
-          backHome: 'Retour à l\'accueil',
-          back: 'Retour'
+          backHome: 'Retour à l\'accueil'
+          
         },
         quiz: {
           title: 'Quiz des Drapeaux',
@@ -135,21 +149,102 @@ export class SettingsService {
           gameOver: 'Fin du jeu !',
           yourScore: 'Votre score',
           restart: 'Recommencer',
-          backHome: 'Retour à l\'accueil'
+          backHome: 'Retour à l\'accueil',
+          back: 'Retour'
         },
         settings: {
           title: 'Paramètres',
           language: 'Langue',
           theme: 'Thème',
           light: 'Clair',
-          dark: 'Sombre'
+          dark: 'Sombre',
+          administrator: 'Mode Administrateur',
+          adminEnabled: 'Activé',
+          adminDisabled: 'Désactivé'
+        },
+        hof: {
+          title: 'Hall of Fame',
+          backButton: 'Retour',
+          backToHome: 'Retour à l\'accueil',
+          clearScores: 'Effacer les scores',
+          confirmClear: 'Êtes-vous sûr de vouloir effacer tous les scores ?',
+          filterBy: 'Filtrer par quiz :',
+          allQuizzes: 'Tous les quiz',
+          rank: 'Rang',
+          player: 'Joueur',
+          score: 'Score',
+          percentage: 'Pourcentage',
+          quizType: 'Type de Quiz',
+          time: 'Temps',
+          date: 'Date',
+          noScores: 'Aucun score enregistré',
+          noScoresMessage: 'Jouez à un quiz pour voir vos scores ici !',
+          playNow: 'Jouer maintenant',
+          quizTypes: {
+            world: 'Monde',
+            europe: 'Europe',
+            africa: 'Afrique'
+          }
+        },
+        admin: {
+          title: 'Administration',
+          quizManagement: 'Gestion des Quiz',
+          manageQuizzes: 'Gérer les Quiz',
+          manageDescription: 'Activer/désactiver les quiz disponibles',
+          createNewQuiz: 'Créer un Quiz',
+          createDescription: 'Ajouter un nouveau quiz personnalisé',
+          availableQuizzes: 'Quiz Disponibles',
+          enableQuiz: 'Activer le quiz',
+          disableQuiz: 'Désactiver le quiz',
+          addNewQuiz: 'Créer un Quiz',
+          hofManagement: 'Gestion Hall of Fame',
+          removeScore: 'Supprimer ce score',
+          confirmRemoveScore: 'Êtes-vous sûr de vouloir supprimer ce score ?',
+          newQuizForm: {
+            title: 'Créer un nouveau quiz',
+            name: 'Nom du quiz',
+            questions: 'Nombre de questions',
+            languages: 'Langues',
+            continent: 'Continent',
+            save: 'Créer le quiz',
+            cancel: 'Annuler'
+          }
+        },
+        quiz_choice: {
+          title: 'Choisissez votre Quiz',
+          subtitle: 'Sélectionnez le type de quiz que vous souhaitez jouer',
+          start: 'Commencer',
+          customize: 'Personnaliser',
+          backHome: 'Retour à l\'accueil'
+        },
+        continent_selection: {
+          title: 'Sélection des Continents',
+          description: 'Choisissez les continents pour votre quiz drapeaux',
+          selectAll: 'Tout sélectionner',
+          clearAll: 'Tout désélectionner',
+          countries: 'pays',
+          continentsSelected: 'continents sélectionnés',
+          selectAtLeastOne: 'Veuillez sélectionner au moins un continent',
+          startQuiz: 'Commencer le quiz'
+        },
+        language_selection: {
+          title: 'Sélection des Langues',
+          description: 'Choisissez les langues parlées dans les pays pour votre quiz',
+          selectAll: 'Tout sélectionner',
+          clearAll: 'Tout désélectionner',
+          countries: 'pays',
+          regions: 'Régions:',
+          languagesSelected: 'langues sélectionnées',
+          selectAtLeastOne: 'Veuillez sélectionner au moins une langue',
+          startQuiz: 'Commencer le quiz'
         }
       },
       'en': {
         nav: {
           home: 'Home',
           quiz: 'Flag Quiz',
-          rules: 'Rules'
+          rules: 'Rules',
+          hof: 'Hall of Fame'
         },
         home: {
           title: 'Flag Quiz',
@@ -236,14 +331,94 @@ export class SettingsService {
           language: 'Language',
           theme: 'Theme',
           light: 'Light',
-          dark: 'Dark'
+          dark: 'Dark',
+          administrator: 'Administrator Mode',
+          adminEnabled: 'Enabled',
+          adminDisabled: 'Disabled'
+        },
+        hof: {
+          title: 'Hall of Fame',
+          backButton: 'Back',
+          backToHome: 'Back to home',
+          clearScores: 'Clear scores',
+          confirmClear: 'Are you sure you want to clear all scores?',
+          filterBy: 'Filter by quiz:',
+          allQuizzes: 'All quizzes',
+          rank: 'Rank',
+          player: 'Player',
+          score: 'Score',
+          percentage: 'Percentage',
+          quizType: 'Quiz Type',
+          time: 'Time',
+          date: 'Date',
+          noScores: 'No scores recorded',
+          noScoresMessage: 'Play a quiz to see your scores here!',
+          playNow: 'Play now',
+          quizTypes: {
+            world: 'World',
+            europe: 'Europe',
+            africa: 'Africa'
+          }
+        },
+        admin: {
+          title: 'Administration',
+          quizManagement: 'Quiz Management',
+          manageQuizzes: 'Manage Quizzes',
+          manageDescription: 'Enable/disable available quizzes',
+          createNewQuiz: 'Create Quiz',
+          createDescription: 'Add a new custom quiz',
+          availableQuizzes: 'Available Quizzes',
+          enableQuiz: 'Enable quiz',
+          disableQuiz: 'Disable quiz',
+          addNewQuiz: 'Create Quiz',
+          hofManagement: 'Hall of Fame Management',
+          removeScore: 'Remove this score',
+          confirmRemoveScore: 'Are you sure you want to remove this score?',
+          newQuizForm: {
+            title: 'Create new quiz',
+            name: 'Quiz name',
+            questions: 'Number of questions',
+            languages: 'Languages',
+            continent: 'Continent',
+            save: 'Create quiz',
+            cancel: 'Cancel'
+          }
+        },
+        quiz_choice: {
+          title: 'Choose your Quiz',
+          subtitle: 'Select the type of quiz you want to play',
+          start: 'Start',
+          customize: 'Customize',
+          backHome: 'Back to home'
+        },
+        continent_selection: {
+          title: 'Continent Selection',
+          description: 'Choose continents for your flag quiz',
+          selectAll: 'Select All',
+          clearAll: 'Clear All',
+          countries: 'countries',
+          continentsSelected: 'continents selected',
+          selectAtLeastOne: 'Please select at least one continent',
+          startQuiz: 'Start Quiz'
+        },
+        language_selection: {
+          title: 'Language Selection',
+          description: 'Choose languages spoken in countries for your quiz',
+          selectAll: 'Select All',
+          clearAll: 'Clear All',
+          countries: 'countries',
+          regions: 'Regions:',
+          languagesSelected: 'languages selected',
+          selectAtLeastOne: 'Please select at least one language',
+          startQuiz: 'Start Quiz'
         }
       },
       'es': {
         nav: {
           home: 'Inicio',
           quiz: 'Quiz Banderas',
-          rules: 'Reglas'
+          rules: 'Reglas',
+          hof: 'Hall of Fame'
         },
         home: {
           title: 'Quiz de Banderas',
@@ -331,7 +506,86 @@ export class SettingsService {
           language: 'Idioma',
           theme: 'Tema',
           light: 'Claro',
-          dark: 'Oscuro'
+          dark: 'Oscuro',
+          administrator: 'Modo Administrador',
+          adminEnabled: 'Activado',
+          adminDisabled: 'Desactivado'
+        },
+        hof: {
+          title: 'Hall of Fame',
+          backButton: 'Volver',
+          backToHome: 'Volver al inicio',
+          clearScores: 'Limpiar puntuaciones',
+          confirmClear: '¿Estás seguro de que quieres limpiar todas las puntuaciones?',
+          filterBy: 'Filtrar por quiz:',
+          allQuizzes: 'Todos los quiz',
+          rank: 'Rango',
+          player: 'Jugador',
+          score: 'Puntuación',
+          percentage: 'Porcentaje',
+          quizType: 'Tipo de Quiz',
+          time: 'Tiempo',
+          date: 'Fecha',
+          noScores: 'No hay puntuaciones registradas',
+          noScoresMessage: '¡Juega un quiz para ver tus puntuaciones aquí!',
+          playNow: 'Jugar ahora',
+          quizTypes: {
+            world: 'Mundo',
+            europe: 'Europa',
+            africa: 'África'
+          }
+        },
+        admin: {
+          title: 'Administración',
+          quizManagement: 'Gestión de Quiz',
+          manageQuizzes: 'Gestionar Quiz',
+          manageDescription: 'Activar/desactivar quiz disponibles',
+          createNewQuiz: 'Crear Quiz',
+          createDescription: 'Añadir un nuevo quiz personalizado',
+          availableQuizzes: 'Quiz Disponibles',
+          enableQuiz: 'Activar quiz',
+          disableQuiz: 'Desactivar quiz',
+          addNewQuiz: 'Crear Quiz',
+          hofManagement: 'Gestión Hall of Fame',
+          removeScore: 'Eliminar esta puntuación',
+          confirmRemoveScore: '¿Estás seguro de que quieres eliminar esta puntuación?',
+          newQuizForm: {
+            title: 'Crear nuevo quiz',
+            name: 'Nombre del quiz',
+            questions: 'Número de preguntas',
+            languages: 'Idiomas',
+            continent: 'Continente',
+            save: 'Crear quiz',
+            cancel: 'Cancelar'
+          }
+        },
+        quiz_choice: {
+          title: 'Elige tu Quiz',
+          subtitle: 'Selecciona el tipo de quiz que quieres jugar',
+          start: 'Comenzar',
+          customize: 'Personalizar',
+          backHome: 'Volver al inicio'
+        },
+        continent_selection: {
+          title: 'Selección de Continentes',
+          description: 'Elige los continentes para tu quiz de banderas',
+          selectAll: 'Seleccionar Todo',
+          clearAll: 'Limpiar Todo',
+          countries: 'países',
+          continentsSelected: 'continentes seleccionados',
+          selectAtLeastOne: 'Por favor selecciona al menos un continente',
+          startQuiz: 'Comenzar Quiz'
+        },
+        language_selection: {
+          title: 'Selección de Idiomas',
+          description: 'Elige los idiomas hablados en países para tu quiz',
+          selectAll: 'Seleccionar Todo',
+          clearAll: 'Limpiar Todo',
+          countries: 'países',
+          regions: 'Regiones:',
+          languagesSelected: 'idiomas seleccionados',
+          selectAtLeastOne: 'Por favor selecciona al menos un idioma',
+          startQuiz: 'Comenzar Quiz'
         }
       }
     }
