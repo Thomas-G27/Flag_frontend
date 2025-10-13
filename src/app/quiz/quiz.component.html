@@ -5,7 +5,7 @@
             <p>{{ currentQuestionIndex + 1 }}/{{ questions.length }}</p>
             <img [src]="questions[currentQuestionIndex].flagUrl" alt="Drapeau" width="200">
         </div>
-        <form (ngSubmit)="submitAnswer()">
+        <form class="answer" (ngSubmit)="submitAnswer()">
             <input 
                 type="text" 
                 [(ngModel)]="userAnswer" 
@@ -14,14 +14,20 @@
                 required
                 class="form-control"
                 [disabled]="feedback !== ''"
+                autofocus
+                #countryInput
             >
             <button class="btn btn-primary" type="submit" [disabled]="feedback !== ''">{{ translations.quiz?.submit }}</button>
         </form>
         <div *ngIf="feedback" class="feedback">
             {{ feedback }}
         </div>
-        <button class="btn btn-secondary" routerLink="/quiz_choice">{{ translations.quiz?.back }}</button>
     </div>
+
+    <div class="back-btn-container">
+        <button class="btn" routerLink="/quiz_choice">{{ translations.quiz?.back }}</button>
+    </div>
+
     <div class="quiz-content" *ngIf="quizFinished">
         <h2>{{ translations.quiz?.gameOver }}</h2>
         <p>{{ translations.quiz?.yourScore }} : {{ score }} / {{ questions.length }}</p>

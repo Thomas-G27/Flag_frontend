@@ -121,7 +121,6 @@ export class SettingsService {
           tipLearnDesc: 'Chaque drapeau vu est une connaissance acquise',
           startQuiz: 'Commencer le Quiz',
           backHome: 'Retour à l\'accueil',
-          back: 'Retour'
         },
         quiz: {
           title: 'Quiz des Drapeaux',
@@ -135,7 +134,8 @@ export class SettingsService {
           gameOver: 'Fin du jeu !',
           yourScore: 'Votre score',
           restart: 'Recommencer',
-          backHome: 'Retour à l\'accueil'
+          backHome: 'Retour à l\'accueil',
+          back: 'Retour'
         },
         settings: {
           title: 'Paramètres',

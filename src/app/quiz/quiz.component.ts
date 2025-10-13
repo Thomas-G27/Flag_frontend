@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { SettingsService } from '../services/settings.service';
 import { Subscription } from "rxjs"
 
@@ -13,6 +13,8 @@ interface Question {
     styleUrls: ['./quiz.component.scss']
 })
 export class QuizComponent implements OnInit, OnDestroy {
+    @ViewChild('countryInput') countryInput!: ElementRef;
+
     questions: Question[] = [
         {
             flagUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg',
@@ -92,6 +94,10 @@ export class QuizComponent implements OnInit, OnDestroy {
         this.currentQuestionIndex++;
         if (this.currentQuestionIndex >= this.questions.length) {
             this.quizFinished = true;
+        } else {
+            setTimeout(() => {
+                this.countryInput.nativeElement.focus();
+            });
         }
     }
 
