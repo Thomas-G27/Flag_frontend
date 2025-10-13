@@ -39,17 +39,17 @@
   <div class="hero-content">
     <h1 class="main-title">
       <span class="flag-emoji">🏴</span>
-      {{ translations.home?.title || 'Quiz des Drapeaux' }}
+      {{ translations.home?.title }}
       <span class="flag-emoji">🏁</span>
     </h1>
-    <p class="subtitle">{{ translations.home?.welcome || 'Testez vos connaissances des drapeaux du monde entier !' }}</p>
+    <p class="subtitle">{{ translations.home?.welcome }}</p>
     
     <div class="cta-buttons">
       <a routerLink="/quiz_choice" class="play-button">
-        🎮 {{ translations.home?.playButton || 'JOUER' }}
+        🎮 {{ translations.home?.playButton }}
       </a>
       <a routerLink="/rules" class="rules-button">
-        📋 {{ translations.home?.rulesButton || 'RÈGLES' }}
+        📋 {{ translations.home?.rulesButton }}
       </a>
     </div>
   </div>

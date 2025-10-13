@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { SettingsService } from '../services/settings.service';
+import { Subscription } from "rxjs"
 
 interface Question {
     flagUrl: string;
@@ -10,7 +12,7 @@ interface Question {
     templateUrl: './quiz.component.html',
     styleUrls: ['./quiz.component.scss']
 })
-export class QuizComponent implements OnInit {
+export class QuizComponent implements OnInit, OnDestroy {
     questions: Question[] = [
         {
             flagUrl: 'https://upload.wikimedia.org/wikipedia/commons/9/9b/Flag_of_Nepal.svg',
@@ -40,12 +42,27 @@ export class QuizComponent implements OnInit {
     score: number = 0;
     quizFinished: boolean = false;
 
-    constructor() { }
+    // pour les traductions
+    currentLanguage: string = 'fr'
+    translations: any = {}
+    private languageSubscription!: Subscription
+
+    constructor(private settingsService: SettingsService) { }
 
     ngOnInit(): void { 
+        this.languageSubscription = this.settingsService.language$.subscribe(lang => {
+            this.currentLanguage = lang
+            this.translations = this.settingsService.getTranslation(lang)
+        })
         this.shuffleQuestions();
     }
 
+    ngOnDestroy(): void {
+        if (this.languageSubscription) {
+            this.languageSubscription.unsubscribe()
+        }
+    }
+    
     shuffleQuestions(): void {
     for (let i = this.questions.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
