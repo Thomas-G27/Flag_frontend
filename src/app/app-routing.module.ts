@@ -4,6 +4,7 @@ import { HomeComponent } from "home/home.component"
 import { QuizComponent } from "quiz/quiz.component"
 import { QuizChoiceComponent } from "quiz_choice/quiz_choice.component"
 import { RulesComponent } from "rules/rules.component"
+import { CountriesComponent } from "countries/countries.component"
 
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: "quiz/language", component: QuizComponent },
   { path: "quiz_choice", component: QuizChoiceComponent },
   { path: "rules", component: RulesComponent },
+  { path: "countries", component: CountriesComponent }
 ]
 
 @NgModule({
