@@ -12,7 +12,7 @@ export interface Pays {
   providedIn: 'root'
 })
 export class PaysService {
-  private apiUrl = 'http://localhost:8080/api/pays';
+  private apiUrl = 'http://localhost:8080/api/countries';
 
   constructor(private http: HttpClient) {}
 
