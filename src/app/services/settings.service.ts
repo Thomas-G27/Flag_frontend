@@ -63,7 +63,13 @@ export class SettingsService {
           description1: 'Découvrez les drapeaux de différents pays et apprenez en vous amusant.',
           description2: 'Êtes-vous prêt à relever le défi ?',
           playButton: 'JOUER',
-          rulesButton: 'RÈGLES'
+          rulesButton: 'RÈGLES',
+          worldFlags: 'Drapeaux du Monde',
+          worldFlagsDescription: 'Plus de 100 drapeaux de pays différents',
+          scores: 'Scores',
+          scoresDescription: 'Suivez vos performances et battez vos records',
+          challenges: 'Défis',
+          challengesDescription: 'Différents niveaux de difficulté'
         },
         rules: {
           title: 'Règles du Quiz Drapeaux',
@@ -114,11 +120,10 @@ export class SettingsService {
           tipLearn: 'Apprenez en jouant',
           tipLearnDesc: 'Chaque drapeau vu est une connaissance acquise',
           startQuiz: 'Commencer le Quiz',
-          backHome: 'Retour à l\'accueil'
+          backHome: 'Retour à l\'accueil',
         },
         quiz: {
           title: 'Quiz des Drapeaux',
-          welcome: 'Bienvenue dans le quiz des drapeaux ! Testez vos connaissances.',
           comingSoon: 'Le quiz sera bientôt disponible...',
           placeholder: 'Tapez le nom du pays...',
           submit: 'Valider',
@@ -128,7 +133,9 @@ export class SettingsService {
           incorrect: 'Incorrect',
           gameOver: 'Fin du jeu !',
           yourScore: 'Votre score',
-          backHome: 'Retour à l\'accueil'
+          restart: 'Recommencer',
+          backHome: 'Retour à l\'accueil',
+          back: 'Retour'
         },
         settings: {
           title: 'Paramètres',
@@ -150,7 +157,13 @@ export class SettingsService {
           description1: 'Discover flags from different countries and learn while having fun.',
           description2: 'Are you ready to take on the challenge?',
           playButton: 'PLAY',
-          rulesButton: 'RULES'
+          rulesButton: 'RULES',
+          worldFlags: 'World Flags',
+          worldFlagsDescription: 'Over 100 flags from different countries',
+          scores: 'Scores',
+          scoresDescription: 'Track your performance and beat your records',
+          challenges: 'Challenges',
+          challengesDescription: 'Different levels of difficulty'
         },
         rules: {
           title: 'Flag Quiz Rules',
@@ -205,7 +218,6 @@ export class SettingsService {
         },
         quiz: {
           title: 'Flag Quiz',
-          welcome: 'Welcome to the flag quiz! Test your knowledge.',
           comingSoon: 'The quiz will be available soon...',
           placeholder: 'Type the country name...',
           submit: 'Submit',
@@ -213,9 +225,11 @@ export class SettingsService {
           score: 'Score',
           correct: 'Correct!',
           incorrect: 'Incorrect',
-          gameOver: 'Game Over!',
+          gameOver: 'Game Over !',
           yourScore: 'Your score',
-          backHome: 'Back to home'
+          restart: 'Restart',
+          backHome: 'Back to home',
+          back: 'Back'
         },
         settings: {
           title: 'Settings',
@@ -233,11 +247,17 @@ export class SettingsService {
         },
         home: {
           title: 'Quiz de Banderas',
-          welcome: '¡Pon a prueba tu conocimiento de las banderas del mundo!',
           description1: 'Descubre las banderas de diferentes países y aprende divirtiéndote.',
           description2: '¿Estás listo para aceptar el desafío?',
           playButton: 'JUGAR',
-          rulesButton: 'REGLAS'
+          rulesButton: 'REGLAS',
+          worldFlags: 'Banderas del Mundo',
+          worldFlagsDescription: 'Más de 100 banderas de diferentes países',
+          scores: 'Puntuaciones',
+          scoresDescription: 'Sigue tu rendimiento y supera tus récords',
+          challenges: 'Desafíos',
+          challengesDescription: 'Diferentes niveles de dificultad'
+          
         },
         rules: {
           title: 'Reglas del Quiz de Banderas',
@@ -302,7 +322,9 @@ export class SettingsService {
           incorrect: 'Incorrecto',
           gameOver: '¡Fin del juego!',
           yourScore: 'Tu puntuación',
-          backHome: 'Volver al inicio'
+          restart: 'Reiniciar',
+          backHome: 'Volver al inicio',
+          back: 'Volver'
         },
         settings: {
           title: 'Configuración',

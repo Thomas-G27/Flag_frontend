@@ -1,33 +1,37 @@
 <div class="quiz-container">
-    <h1>Quiz Drapeaux</h1>
-    <p>Bienvenue dans le quiz des drapeaux ! Testez vos connaissances.</p>
+    <h1>{{ translations.quiz?.title }}</h1>
     <div class="quiz-content" *ngIf="!quizFinished">
         <div class="question">
-            <p>Question {{ currentQuestionIndex + 1 }} sur {{ questions.length }}</p>
-            <p>À quel pays appartient ce drapeau ?</p>
+            <p>{{ currentQuestionIndex + 1 }}/{{ questions.length }}</p>
             <img [src]="questions[currentQuestionIndex].flagUrl" alt="Drapeau" width="200">
         </div>
-        <form (ngSubmit)="submitAnswer()">
+        <form class="answer" (ngSubmit)="submitAnswer()">
             <input 
                 type="text" 
                 [(ngModel)]="userAnswer" 
                 name="country" 
-                placeholder="Entrez le nom du pays" 
+                placeholder="{{ translations.quiz?.placeholder }}" 
                 required
                 class="form-control"
                 [disabled]="feedback !== ''"
+                autofocus
+                #countryInput
             >
-            <button class="btn btn-primary" type="submit" [disabled]="feedback !== ''">Valider</button>
+            <button class="btn btn-primary" type="submit" [disabled]="feedback !== ''">{{ translations.quiz?.submit }}</button>
         </form>
         <div *ngIf="feedback" class="feedback">
             {{ feedback }}
         </div>
-        <button class="btn btn-secondary" routerLink="/">Retour à l'accueil</button>
     </div>
+
+    <div class="back-btn-container">
+        <button class="btn" routerLink="/quiz_choice">{{ translations.quiz?.back }}</button>
+    </div>
+
     <div class="quiz-content" *ngIf="quizFinished">
-        <h2>Quiz terminé !</h2>
-        <p>Votre score : {{ score }} / {{ questions.length }}</p>
-        <button class="btn btn-primary" (click)="restartQuiz()">Recommencer</button>
-        <button class="btn btn-secondary" routerLink="/">Retour à l'accueil</button>
+        <h2>{{ translations.quiz?.gameOver }}</h2>
+        <p>{{ translations.quiz?.yourScore }} : {{ score }} / {{ questions.length }}</p>
+        <button class="btn btn-primary" (click)="restartQuiz()">{{ translations.quiz?.restart }}</button>
+        <button class="btn btn-secondary" routerLink="/">{{ translations.quiz?.backHome }}</button>
     </div>
 </div>

@@ -1,0 +1,25 @@
+<div class="quiz-choice-container">
+    <div class="header-section">
+        <h1 class="main-title">Choisissez votre Quiz</h1>
+        <p class="subtitle">Sélectionnez le type de quiz que vous souhaitez jouer</p>
+    </div>
+
+    <div class="quiz-options">
+        <div *ngFor="let quiz of quizTypes" class="quiz-card" [style.--accent-color]="quiz.color">
+            <div class="quiz-icon">{{ quiz.icon }}</div>
+            <h3 class="quiz-name">{{ quiz.name }}</h3>
+            <p class="quiz-description">{{ quiz.description }}</p>
+            
+            <a [routerLink]="quiz.href" class="quiz-button" [style.background-color]="quiz.color">
+                <span>Commencer</span>
+                <span class="arrow">→</span>
+            </a>
+        </div>
+    </div>
+
+    <div class="back-section">
+        <a routerLink="/home" class="back-button">
+            ← Retour à l'accueil
+        </a>
+    </div>
+</div>

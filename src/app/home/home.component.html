@@ -1,37 +1,45 @@
-<span class="title">🏴 {{ translations.home?.title || 'Quiz des Drapeaux' }} 🏁</span>
-<div class="welcome-section">
-  <span class="welcome">{{ translations.home?.welcome || 'Testez vos connaissances des drapeaux du monde entier !' }}</span>
-  <img src="assets/sun.gif" height="100">
-</div>
-
-<div class="description">
-  <p>{{ translations.home?.description1 || 'Découvrez les drapeaux de différents pays et apprenez en vous amusant.' }}</p>
-  <p>{{ translations.home?.description2 || 'Êtes-vous prêt à relever le défi ?' }}</p>
-</div>
-
-<div class="play-section">
-  <button class="play-button" routerLink="/quiz">
-    <span class="button-text">🎮 {{ translations.home?.playButton || 'JOUER' }}</span>
-  </button>
-  <button class="rules-button" routerLink="/rules">
-    <span class="button-text">📋 {{ translations.home?.rulesButton || 'RÈGLES' }}</span>
-  </button>
-</div>
-
-<div class="features">
-  <div class="feature-card">
-    <div class="feature-icon">🌍</div>
-    <h3>Drapeaux du Monde</h3>
-    <p>Plus de 100 drapeaux de pays différents</p>
+<section class="hero-section">
+  <div class="hero-content">
+    <h1 class="main-title">
+      <span class="flag-emoji">🏁</span>
+      {{ translations.home?.title }}
+      <span class="flag-emoji">🏁</span>
+    </h1>
+    <p class="subtitle">{{ translations.home?.welcome }}</p>
+    
+    <div class="cta-buttons">
+      <a routerLink="/quiz_choice" class="play-button">
+        🎮 {{ translations.home?.playButton }}
+      </a>
+      <a routerLink="/rules" class="rules-button">
+        📋 {{ translations.home?.rulesButton }}
+      </a>
+    </div>
   </div>
-  <div class="feature-card">
-    <div class="feature-icon">🏆</div>
-    <h3>Scores</h3>
-    <p>Suivez vos performances et battez vos records</p>
+</section>
+
+<section class="features-section">
+  <div class="container">
+    <h2 class="section-title">Fonctionnalités</h2>
+    
+    <div class="features-grid">
+      <div class="feature-card">
+        <span class="feature-icon">🌍</span>
+        <h3 class="feature-title">{{ translations.home?.worldFlags || 'Drapeaux du Monde' }}</h3>
+        <p class="feature-description">{{ translations.home?.worldFlagsDescription || 'Plus de 100 drapeaux de pays différents' }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">🏆</span>
+        <h3 class="feature-title">{{ translations.home?.scores || 'Scores' }}</h3>
+        <p class="feature-description">{{ translations.home?.scoresDescription || 'Suivez vos performances et battez vos records' }}</p>
+      </div>
+      
+      <div class="feature-card">
+        <span class="feature-icon">⚡</span>
+        <h3 class="feature-title">{{ translations.home?.challenges || 'Défis' }}</h3>
+        <p class="feature-description">{{ translations.home?.challengesDescription || 'Différents niveaux de difficulté' }}</p>
+      </div>
+    </div>
   </div>
-  <div class="feature-card">
-    <div class="feature-icon">⚡</div>
-    <h3>Défis</h3>
-    <p>Différents niveaux de difficulté</p>
-  </div>
-</div>
+</section>
