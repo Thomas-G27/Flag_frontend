@@ -5,7 +5,7 @@ import { Observable } from 'rxjs';
 export interface Pays {
   id: number;
   name: string;
-  drapeau: string;
+  flag: string;
 }
 
 @Injectable({

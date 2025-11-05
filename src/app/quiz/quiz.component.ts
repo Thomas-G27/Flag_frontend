@@ -46,9 +46,9 @@ export class QuizComponent implements OnInit, OnDestroy {
           const premierPays = this.paysList[0];
 
           // On remplit la première question avec son drapeau
-          const countryCode = this.emojiToCountryCode(premierPays.drapeau);
+          const countryCode = premierPays.flag.toLowerCase();
             // log pour vérifier le code pays
-            console.log('Code pays pour le drapeau', premierPays.drapeau, '=>', countryCode);
+            console.log('Code pays pour le pays', premierPays.name , '=>', countryCode);
             
           this.questions = [
             {
