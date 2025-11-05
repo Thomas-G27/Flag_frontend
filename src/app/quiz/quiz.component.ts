@@ -37,7 +37,7 @@ export class QuizComponent implements OnInit, OnDestroy {
   private languageSubscription!: Subscription
 
   ngOnInit(): void { 
-    // 1️⃣ On récupère les pays depuis le backend
+    // On récupère les pays depuis le backend
     this.paysService.getAllPays().subscribe({
       next: (data) => {
         this.paysList = data;
@@ -45,14 +45,14 @@ export class QuizComponent implements OnInit, OnDestroy {
         if (this.paysList.length > 0) {
           const premierPays = this.paysList[0];
 
-          // 2️⃣ On remplit la première question avec son drapeau
+          // On remplit la première question avec son drapeau
           const countryCode = this.emojiToCountryCode(premierPays.drapeau);
             // log pour vérifier le code pays
             console.log('Code pays pour le drapeau', premierPays.drapeau, '=>', countryCode);
             
           this.questions = [
             {
-                flagUrl: `https://flagcdn.com/w320/${countryCode}.png`, // 👈 génère une vraie image
+                flagUrl: `https://flagcdn.com/w320/${countryCode}.png`,
                 answers: [premierPays.name.toLowerCase()]
             }
           ];
@@ -62,7 +62,7 @@ export class QuizComponent implements OnInit, OnDestroy {
       error: (err) => console.error('Erreur de chargement des pays', err)
     });
 
-    // 3️⃣ Gestion de la langue
+    // Gestion de la langue
     this.languageSubscription = this.settingsService.language$.subscribe(lang => {
       this.currentLanguage = lang
       this.translations = this.settingsService.getTranslation(lang)
