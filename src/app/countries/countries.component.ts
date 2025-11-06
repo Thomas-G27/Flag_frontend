@@ -19,10 +19,11 @@ export class CountriesComponent implements OnInit {
     });
   }
 
-  onSelectPays(id: number): void {
-    this.paysService.getPaysById(id).subscribe({
+  onSelectPays(code: String): void {
+    this.paysService.getPaysByCode(code).subscribe({
       next: (data) => this.selectedPays = data,
       error: (err) => console.error('Erreur de chargement du pays', err)
     });
+    console.log('Pays sélectionné:', this.selectedPays);
   }
 }

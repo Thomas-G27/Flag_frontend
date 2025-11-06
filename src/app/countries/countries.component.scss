@@ -1,0 +1,22 @@
+@use "theme";
+
+:host {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+  transition: all 0.3s ease;
+}
+
+.flag {
+  border: 5px solid var(--border-color);
+  border-radius: 10px;
+  box-shadow: 0 4px 15px var(--shadow);
+  width: auto;
+  height: auto;
+  max-width: 250px;
+  max-height: 200px;
+  margin-bottom: 15px;
+  cursor: pointer;
+}
