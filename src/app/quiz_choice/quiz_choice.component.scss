@@ -146,6 +146,39 @@
 
       .quiz-card {
         padding: 2rem;
+
+        .quiz-config {
+        margin-bottom: 1rem;
+        text-align: left;
+
+          label {
+            display: block;
+            font-weight: 600;
+            color: #334155;
+            margin-bottom: 0.5rem;
+          }
+
+          input[type="range"] {
+            width: 100%;
+            accent-color: var(--accent-color);
+            cursor: pointer;
+          }
+
+          select {
+            width: 100%;
+            padding: 0.5rem;
+            border-radius: 8px;
+            border: 1px solid #cbd5e1;
+            background: #f8fafc;
+            color: #334155;
+            cursor: pointer;
+            transition: all 0.2s ease;
+
+            &:hover {
+              background: #f1f5f9;
+            }
+          }
+        }
       }
     }
   }

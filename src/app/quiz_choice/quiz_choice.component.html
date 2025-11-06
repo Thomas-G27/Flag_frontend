@@ -9,15 +9,46 @@
             <div class="quiz-icon">{{ quiz.icon }}</div>
             <h3 class="quiz-name">{{ quiz.name }}</h3>
             <p class="quiz-description">{{ quiz.description }}</p>
-            
+
+            <!-- SLIDER : Choix du nombre de questions -->
+            <div class="quiz-config">
+                <label>Nombre de drapeaux : {{ quiz.selectedFlagsCount }}</label>
+                <input *ngIf="quiz.id === 'world'" type="range" min="5" max="250" step="1"
+                    [(ngModel)]="quiz.selectedFlagsCount" />
+                <input *ngIf="quiz.id === 'continent'" type="range" min="5" max="59" step="1"
+                    [(ngModel)]="quiz.selectedFlagsCount" />
+                <input *ngIf="quiz.id === 'language'" type="range" min="5" max="100" step="1"
+                    [(ngModel)]="quiz.selectedFlagsCount" />
+            </div>
+
+            <!-- SELECT : Choix du continent -->
+            <div class="quiz-config" *ngIf="quiz.id === 'continent'">
+                <label>Continent :</label>
+                <select [(ngModel)]="quiz.selectedContinent">
+                <option *ngFor="let c of continents" [value]="c">{{ c }}</option>
+                </select>
+            </div>
+
+            <!-- SELECT : Choix de la langue -->
+            <div class="quiz-config" *ngIf="quiz.id === 'language'">
+                <label>Langue :</label>
+                <select [(ngModel)]="quiz.selectedLanguage">
+                <option *ngFor="let l of languages" [value]="l">{{ l }}</option>
+                </select>
+            </div>
+
             <a [routerLink]="['/quiz']" [queryParams]="{ type: quiz.id, 
                                                         count: quiz.selectedFlagsCount, 
                                                         continent: quiz.selectedContinent, 
                                                         language: quiz.selectedLanguage}" 
                                                         class="quiz-button" 
                                                         [style.background-color]="quiz.color">
-                <span>Commencer</span>
-                <span class="arrow">→</span>
+            
+            
+
+            <!-- Bouton de démarrage -->
+            <span>Commencer</span>
+            <span class="arrow">→</span>
             </a>
         </div>
     </div>
