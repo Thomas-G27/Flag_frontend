@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { SettingsService } from '../services/settings.service';
 import { Subscription } from 'rxjs';
 import { Continent, ContinentsService } from 'services/continents.service';
+import { LanguagesService } from 'services/languages.service';
 
 @Component({
   selector: 'quiz-choice',
@@ -13,9 +14,10 @@ export class QuizChoiceComponent implements OnInit {
   currentLanguage: string = 'fr';
   private languageSubscription!: Subscription;
   private continentSubscription!: Subscription;
+  private languesSubscription!: Subscription;
 
   continents: string[] = [];
-  languages: string[] = ['French', 'English', 'Spanish', 'Arabic', 'Chinese'];
+  langues: string[] = [];
 
   quizzes = [
     {
@@ -46,7 +48,7 @@ export class QuizChoiceComponent implements OnInit {
     }
   ];
 
-  constructor(private settingsService: SettingsService, private continentsService: ContinentsService) {}
+  constructor(private settingsService: SettingsService, private continentsService: ContinentsService, private languagesService: LanguagesService) {}
 
   ngOnInit(): void {
     this.languageSubscription = this.settingsService.language$.subscribe(lang => {
@@ -54,7 +56,7 @@ export class QuizChoiceComponent implements OnInit {
       this.translations = this.settingsService.getTranslation(lang);
     });
     this.loadContinents();
-    
+    this.loadLangues();
   }
 
   ngOnDestroy(): void {
@@ -66,7 +68,7 @@ export class QuizChoiceComponent implements OnInit {
   loadContinents() {
     this.continentSubscription = this.continentsService.getAllContinents().subscribe({
       next: (data) => {
-        // Si ton API renvoie par exemple [{name: "Europe"}, {name: "Asie"}]
+        // recupere le name (ex : [{name: "Europe"}, {name: "Asie"}])
         this.continents = data.map(c => c.name);
 
         // Valeur par défaut du quiz "continent"
@@ -77,6 +79,22 @@ export class QuizChoiceComponent implements OnInit {
       },
       error: (err) => {
         console.error('Erreur lors du chargement des continents :', err);
+      }
+    });
+  }
+
+  loadLangues() {
+    this.languesSubscription = this.languagesService.getAllLanguages().subscribe({
+      next: (data) => {
+        this.langues = data.map(l => l.name);
+
+        const languageQuiz = this.quizzes.find(q => q.id === 'language');
+        if (languageQuiz && this.langues.length > 0) {
+          languageQuiz.selectedLanguage = this.langues[0];
+        }
+      },
+      error: (err) => {
+        console.error('Erreur lors du chargement des langues :', err);
       }
     });
   }
