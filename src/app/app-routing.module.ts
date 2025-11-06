@@ -5,6 +5,8 @@ import { QuizComponent } from "quiz/quiz.component"
 import { QuizChoiceComponent } from "quiz_choice/quiz_choice.component"
 import { RulesComponent } from "rules/rules.component"
 import { CountriesComponent } from "countries/countries.component"
+import { InscriptionComponent } from "inscription/inscription.component"
+import { HofComponent } from "hof/hof.component"
 
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -15,7 +17,9 @@ const routes: Routes = [
   { path: "quiz/language", component: QuizComponent },
   { path: "quiz_choice", component: QuizChoiceComponent },
   { path: "rules", component: RulesComponent },
-  { path: "countries", component: CountriesComponent }
+  { path: "countries", component: CountriesComponent },
+  { path: "inscription", component: InscriptionComponent },
+  { path: "hall_of_fame", component: HofComponent },
 ]
 
 @NgModule({
