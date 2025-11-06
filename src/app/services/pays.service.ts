@@ -23,4 +23,7 @@ export class PaysService {
   getPaysById(id: number): Observable<Pays> {
     return this.http.get<Pays>(`${this.apiUrl}/${id}`);
   }
+  getPaysByCode(code: String): Observable<Pays> {
+    return this.http.get<Pays>(`${this.apiUrl}/code/${code}`);
+  }
 }

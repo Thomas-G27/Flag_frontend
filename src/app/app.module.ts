@@ -15,6 +15,7 @@ import { RulesComponent } from "rules/rules.component"
 import { SettingsComponent } from "./settings/settings.component"
 import { QuizChoiceComponent } from "./quiz_choice/quiz_choice.component"
 import { HttpClientModule } from "@angular/common/http"
+import { CountriesComponent } from "countries/countries.component"
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { HttpClientModule } from "@angular/common/http"
     RulesComponent,
     SettingsComponent,
     QuizChoiceComponent,
+    CountriesComponent
   ],
   imports: [
     BrowserModule,
