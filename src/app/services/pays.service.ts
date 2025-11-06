@@ -12,18 +12,27 @@ export interface Pays {
   providedIn: 'root'
 })
 export class PaysService {
-  private apiUrl = 'http://localhost:8080/api/countries';
+  private apiUrl = 'http://localhost:8080/api/';
 
   constructor(private http: HttpClient) {}
 
   getAllPays(): Observable<Pays[]> {
-    return this.http.get<Pays[]>(`${this.apiUrl}/`);
+    return this.http.get<Pays[]>(`${this.apiUrl}countries/`);
   }
 
   getPaysById(id: number): Observable<Pays> {
-    return this.http.get<Pays>(`${this.apiUrl}/${id}`);
+    return this.http.get<Pays>(`${this.apiUrl}countries/${id}`);
   }
+
   getPaysByCode(code: String): Observable<Pays> {
-    return this.http.get<Pays>(`${this.apiUrl}/code/${code}`);
+    return this.http.get<Pays>(`${this.apiUrl}countries/code/${code}`);
+  }
+
+  getPaysByContinent(continent: String): Observable<Pays[]> {
+    return this.http.get<Pays[]>(`${this.apiUrl}continents/${continent}/countries`);
+  }
+
+  getPaysByLanguage(language: String): Observable<Pays[]> {
+    return this.http.get<Pays[]>(`${this.apiUrl}languages/${language}/countries`);
   }
 }
