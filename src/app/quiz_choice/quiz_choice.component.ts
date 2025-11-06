@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { Link } from 'models/links.model';
 import { SettingsService } from 'services/settings.service';
 
 
