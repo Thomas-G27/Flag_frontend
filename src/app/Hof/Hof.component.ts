@@ -1,60 +1,26 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { SettingsService } from '../services/settings.service';
-import { Subscription } from 'rxjs';
-import { GameEntry, GameService } from '../services/game.service';
-import { UserService } from '../services/user.service';
+import { Component, OnInit } from '@angular/core';
+import { GameService, Game } from '../services/game.service';
 
 @Component({
-  selector: 'hof',
+  selector: 'app-hof',
   templateUrl: './hof.component.html',
   styleUrls: ['./hof.component.scss']
 })
-export class HofComponent implements OnInit, OnDestroy {
-  translations: any = {}
-  private langSub?: Subscription
+export class HofComponent implements OnInit {
 
-  usernameFilter = ''
-  games: GameEntry[] = []
-  filtered: GameEntry[] = []
+  games: Game[] = [];
+  errorMessage = '';
 
-  constructor(
-    private settings: SettingsService,
-    private gameService: GameService,
-    private userService: UserService
-  ) {}
+  constructor(private gameService: GameService) {}
 
   ngOnInit(): void {
-    this.translations = this.settings.getTranslation(this.settings.getCurrentLanguage())
-    this.langSub = this.settings.language$.subscribe(lang => {
-      this.translations = this.settings.getTranslation(lang)
-    })
-
-    // default to current user if exists
-    const current = this.userService.getCurrentUser()
-    this.usernameFilter = current?.name || ''
-    this.refresh()
+    this.loadGames();
   }
 
-  ngOnDestroy(): void { this.langSub?.unsubscribe() }
-
-  tr(path: string, fallback = ''): string {
-    const parts = path.split('.')
-    let cur: any = this.translations
-    for (const p of parts) {
-      if (cur && typeof cur === 'object' && p in cur) cur = cur[p]
-      else return fallback
-    }
-    return typeof cur === 'string' ? cur : fallback
-  }
-
-  onFilterChange(): void { this.refresh() }
-
-  private refresh(): void {
-    const all = this.gameService.getAll()
-    const base = this.usernameFilter ? all.filter(g => g.username?.toLowerCase() === this.usernameFilter.toLowerCase()) : all
-    this.games = base
-    this.filtered = base
-      .slice()
-      .sort((a, b) => b.score - a.score || (new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime()))
+  loadGames(): void {
+    this.gameService.getAllGames().subscribe({
+      next: (data) => this.games = data.sort((a, b) => b.score - a.score),
+      error: (err) => this.errorMessage = 'Erreur lors du chargement des parties'
+    });
   }
 }

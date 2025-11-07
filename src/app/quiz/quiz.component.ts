@@ -135,7 +135,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.currentQuestionIndex++;
     if (this.currentQuestionIndex >= this.questions.length) {
       this.quizFinished = true;
-      this.saveResult();
+      // this.saveResult();
     } else {
       setTimeout(() => this.countryInput.nativeElement.focus());
     }
@@ -148,17 +148,17 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.buildQuestions();
   }
 
-  private saveResult(): void {
-    const user = this.userService.getCurrentUser();
-    const username = user?.name || 'Guest';
-    this.gameService.addGame({
-      username,
-      score: this.score,
-      total: this.questions.length,
-      mode: this.quizType,
-      dateISO: new Date().toISOString()
-    });
-  }
+  // private saveResult(): void {
+  //   const user = this.userService.getCurrentUser();
+  //   const username = user?.name || 'Guest';
+  //   this.gameService.addGame({
+  //     username,
+  //     score: this.score,
+  //     total: this.questions.length,
+  //     mode: this.quizType,
+  //     dateISO: new Date().toISOString()
+  //   });
+  // }
 
   // convertit un emoji drapeau en code ISO (utile si backend renvoie emoji)
   emojiToCountryCode(emoji: string): string {

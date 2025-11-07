@@ -1,39 +1,23 @@
-import { Injectable } from '@angular/core'
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-export interface GameEntry {
-  username: string
-  score: number
-  total: number
-  mode: string
-  dateISO: string
+export interface Game {
+  score: number;
+  date: string;
+  categorie: string;
+  utilisateur_name: string;
 }
 
-@Injectable({ providedIn: 'root' })
+@Injectable({
+  providedIn: 'root'
+})
 export class GameService {
-  private storageKey = 'flag-quiz-games'
+  private apiUrl = 'http://localhost:8080/api/games/';
 
-  addGame(entry: GameEntry): void {
-    const all = this.getAll()
-    all.push(entry)
-    localStorage.setItem(this.storageKey, JSON.stringify(all))
-  }
+  constructor(private http: HttpClient) {}
 
-  getAll(): GameEntry[] {
-    try {
-      return JSON.parse(localStorage.getItem(this.storageKey) || '[]')
-    } catch {
-      return []
-    }
-  }
-
-  getByUsername(username: string): GameEntry[] {
-    return this.getAll().filter(g => g.username?.toLowerCase() === username.toLowerCase())
-  }
-
-  getTop(limit = 50): GameEntry[] {
-    return this.getAll()
-      .slice()
-      .sort((a, b) => b.score - a.score || (new Date(b.dateISO).getTime() - new Date(a.dateISO).getTime()))
-      .slice(0, limit)
+  getAllGames(): Observable<Game[]> {
+    return this.http.get<Game[]>(this.apiUrl);
   }
 }
