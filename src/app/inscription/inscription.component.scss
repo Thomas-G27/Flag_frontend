@@ -1,0 +1,189 @@
+// /c:/Ecole/5_A/Java/Flag_frontend/src/app/inscription/inscription.component.scss
+
+// Palette (réutilise vos variables)
+$bg: #f5f7fb;
+$card-bg: #ffffff;
+$primary: #2b6ef6;
+$accent: #06d6a0;
+$danger: #e53e3e;
+$text: #1e293b;
+$muted: #64748b;
+$radius: 12px;
+$shadow: 0 10px 34px rgba(16,24,40,0.08);
+
+:host {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 2rem;
+  background: linear-gradient(180deg, $bg 0%, lighten($bg, 2%) 100%);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  color: $text;
+  box-sizing: border-box;
+}
+
+.inscription {
+  width: 100%;
+  max-width: 460px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+
+  .card {
+    width: 100%;
+    background: $card-bg;
+    border-radius: $radius;
+    padding: 2rem;
+    box-shadow: $shadow;
+    border: 1px solid rgba(16,24,40,0.04);
+
+    .card-header {
+      text-align: center;
+      margin-bottom: 1rem;
+
+      .brand {
+        font-weight: 700;
+        color: $primary;
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .title {
+        font-size: 1.5rem;
+        margin: 0.25rem 0 0.5rem;
+        color: $text;
+      }
+
+      .lead {
+        color: $muted;
+        font-size: 0.95rem;
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+
+      .input-group {
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+
+        label {
+          font-size: 0.85rem;
+          color: $muted;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        select {
+          height: 48px;
+          padding: 0 0.9rem;
+          border-radius: 10px;
+          border: 1px solid rgba(16,24,40,0.12);
+          background: #fff;
+          color: $text;
+          outline: none;
+          transition: box-shadow .12s, border-color .12s, transform .06s;
+          font-size: 0.95rem;
+        }
+
+        input::placeholder {
+          color: lighten($muted, 12%);
+        }
+
+        input:focus {
+          border-color: $primary;
+          box-shadow: 0 8px 24px rgba(43,110,246,0.08);
+          transform: translateY(-1px);
+        }
+
+        .helper {
+          font-size: 0.82rem;
+          color: $danger;
+          margin-top: 0.25rem;
+        }
+
+        .is-invalid {
+          border-color: $danger !important;
+          box-shadow: 0 6px 18px rgba(229,62,62,0.06);
+        }
+      } // input-group
+
+      .form-error {
+        color: $danger;
+        font-size: 0.95rem;
+        margin: 0.25rem 0;
+        text-align: center;
+      }
+
+      .actions {
+        display:flex;
+        align-items:center;
+        justify-content:space-between;
+        margin-top: 0.75rem;
+
+        .tos {
+          display:flex;
+          align-items:center;
+          gap: 0.5rem;
+          color: $muted;
+          font-size: 0.9rem;
+
+          input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+          }
+        }
+
+        .buttons {
+          display:flex;
+          gap: 0.6rem;
+        }
+      }
+
+      .btn {
+        padding: 0.6rem 1rem;
+        border-radius: 10px;
+        border: none;
+        cursor: pointer;
+        font-weight: 600;
+        min-width: 110px;
+        transition: transform .08s, box-shadow .12s;
+      }
+
+      .btn.ghost {
+        background: transparent;
+        color: $muted;
+        border: 1px solid rgba(16,24,40,0.06);
+      }
+
+      .btn.primary {
+        background: linear-gradient(90deg, $primary, $accent);
+        color: #fff;
+        box-shadow: 0 8px 22px rgba(43,110,246,0.12);
+      }
+
+      .btn:active { transform: translateY(1px); }
+
+      .foot {
+        margin-top: 1rem;
+        color: $muted;
+        font-size: 0.92rem;
+        text-align: center;
+
+        a { color: $primary; text-decoration: none; font-weight: 600; margin-left: 6px;}
+      }
+    } // form
+  } // card
+} // inscription
+
+@media (max-width: 520px) {
+  :host { padding: 1rem; }
+  .inscription { max-width: 100%; }
+  .card { padding: 1.25rem; }
+}

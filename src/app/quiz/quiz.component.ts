@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { SettingsService } from '../services/settings.service';
 import { Pays, PaysService } from '../services/pays.service';
+import { GameService } from '../services/game.service';
+import { UserService } from '../services/user.service';
 
 interface Question {
   flagUrl: string;
@@ -39,7 +41,9 @@ export class QuizComponent implements OnInit, OnDestroy {
   constructor(
     private paysService: PaysService,
     private settingsService: SettingsService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private gameService: GameService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {
@@ -131,6 +135,7 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.currentQuestionIndex++;
     if (this.currentQuestionIndex >= this.questions.length) {
       this.quizFinished = true;
+      this.saveResult();
     } else {
       setTimeout(() => this.countryInput.nativeElement.focus());
     }
@@ -141,6 +146,18 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.loadCountries();
     this.shuffleArray(this.paysList);
     this.buildQuestions();
+  }
+
+  private saveResult(): void {
+    const user = this.userService.getCurrentUser();
+    const username = user?.name || 'Guest';
+    this.gameService.addGame({
+      username,
+      score: this.score,
+      total: this.questions.length,
+      mode: this.quizType,
+      dateISO: new Date().toISOString()
+    });
   }
 
   // convertit un emoji drapeau en code ISO (utile si backend renvoie emoji)

@@ -1,1 +1,40 @@
-<p>hof works!</p>
+<div class="hof">
+	<div class="header">
+		<h1>{{ tr('hof.title','Hall of Fame') }}</h1>
+		<p class="lead">{{ tr('hof.subtitle','Classement des meilleures parties') }}</p>
+
+		<div class="filter">
+			<label for="userFilter">{{ tr('hof.filterLabel','Filtrer par joueur') }}</label>
+			<input id="userFilter" type="text" [(ngModel)]="usernameFilter" (ngModelChange)="onFilterChange()" placeholder="{{ tr('hof.filterPlaceholder','Nom d\'utilisateur') }}" />
+		</div>
+	</div>
+
+	<div class="table-card" *ngIf="filtered?.length; else empty">
+		<table>
+			<thead>
+				<tr>
+					<th>#</th>
+					<th>{{ tr('hof.player','Joueur') }}</th>
+					<th>{{ tr('hof.mode','Mode') }}</th>
+					<th>{{ tr('hof.score','Score') }}</th>
+					<th>{{ tr('hof.accuracy','Précision') }}</th>
+					<th>{{ tr('hof.date','Date') }}</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr *ngFor="let g of filtered; index as i">
+					<td>{{ i + 1 }}</td>
+					<td>{{ g.username }}</td>
+					<td>{{ g.mode }}</td>
+					<td>{{ g.score }} / {{ g.total }}</td>
+					<td>{{ (g.score / g.total) * 100 | number:'1.0-0' }}%</td>
+					<td>{{ g.dateISO | date:'short' }}</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<ng-template #empty>
+		<div class="empty">{{ tr('hof.empty','Aucune partie enregistrée pour le moment.') }}</div>
+	</ng-template>
+</div>

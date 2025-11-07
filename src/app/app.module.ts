@@ -7,7 +7,7 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations"
 import { NavbarComponent } from "navbar/navbar.component"
 import { MatListModule } from "@angular/material/list"
 import { HomeComponent } from "home/home.component"
-import { FormsModule } from "@angular/forms"
+import { FormsModule, ReactiveFormsModule } from "@angular/forms"
 import { MatIconModule } from "@angular/material/icon"
 import { MatButtonModule } from "@angular/material/button"
 import { QuizComponent } from "quiz/quiz.component"
@@ -16,6 +16,9 @@ import { SettingsComponent } from "./settings/settings.component"
 import { QuizChoiceComponent } from "./quiz_choice/quiz_choice.component"
 import { HttpClientModule } from "@angular/common/http"
 import { CountriesComponent } from "countries/countries.component"
+import { InscriptionComponent } from "./inscription/inscription.component"
+import { LoginComponent } from "./login/login.component" 
+import { HofComponent } from "Hof/Hof.component"
 
 @NgModule({
   declarations: [
@@ -26,7 +29,10 @@ import { CountriesComponent } from "countries/countries.component"
     RulesComponent,
     SettingsComponent,
     QuizChoiceComponent,
-    CountriesComponent
+    CountriesComponent,
+    InscriptionComponent,
+    LoginComponent,
+    HofComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +40,7 @@ import { CountriesComponent } from "countries/countries.component"
     BrowserAnimationsModule,
     MatListModule,
     FormsModule,
+    ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
     HttpClientModule,
