@@ -55,7 +55,9 @@ export class SettingsService {
         nav: {
           home: 'Accueil',
           quiz: 'Quiz Drapeaux',
-          rules: 'Règles'
+          rules: 'Règles',
+          inscription: 'Inscription',
+          hof: 'Hall of Fame'
         },
         home: {
           title: 'Quiz des Drapeaux',
@@ -68,8 +70,7 @@ export class SettingsService {
           worldFlagsDescription: 'Plus de 100 drapeaux de pays différents',
           scores: 'Scores',
           scoresDescription: 'Suivez vos performances et battez vos records',
-          challenges: 'Défis',
-          challengesDescription: 'Différents niveaux de difficulté'
+          challenges: 'Différents niveaux de difficulté'
         },
         rules: {
           title: 'Règles du Quiz Drapeaux',
@@ -143,13 +144,49 @@ export class SettingsService {
           theme: 'Thème',
           light: 'Clair',
           dark: 'Sombre'
+        },
+        inscription: {                              // <-- nouveau bloc inscription
+          title: 'Créer un compte',
+          subtitle: 'Rejoignez-nous pour commencer à jouer et apprendre.',
+          illustration: 'Illustration / image ici',
+          brand: 'Flag Quiz',
+          lead: 'Inscrivez-vous pour sauvegarder vos scores',
+          nameLabel: 'Nom',
+          nameError: 'Nom requis (min 2 caractères)',
+          emailLabel: 'Email',
+          emailError: 'Email invalide',
+          passwordLabel: 'Mot de passe',
+          passwordError: 'Mot de passe (min 6 caractères)',
+          confirmLabel: 'Confirmer mot de passe',
+          confirmError: 'Les mots de passe ne correspondent pas',
+          tos: "J'accepte les conditions",
+          cancel: 'Annuler',
+          saving: 'Enregistrement...',
+          submit: "S'inscrire",
+          already: 'Déjà un compte ?',
+          login: 'Se connecter',
+          error: "Erreur lors de l'inscription"
+        },
+        hof: {
+          title: 'Hall of Fame',
+          subtitle: 'Classement des meilleures parties',
+          filterLabel: 'Filtrer par joueur',
+          filterPlaceholder: "Nom d'utilisateur",
+          player: 'Joueur',
+          mode: 'Mode',
+          score: 'Score',
+          accuracy: 'Précision',
+          date: 'Date',
+          empty: 'Aucune partie enregistrée pour le moment.'
         }
       },
       'en': {
         nav: {
           home: 'Home',
           quiz: 'Flag Quiz',
-          rules: 'Rules'
+          rules: 'Rules',
+          inscription: 'Sign up',
+          hof: 'Hall of Fame'
         },
         home: {
           title: 'Flag Quiz',
@@ -237,13 +274,49 @@ export class SettingsService {
           theme: 'Theme',
           light: 'Light',
           dark: 'Dark'
+        },
+        inscription: {                              // <-- nouveau bloc inscription
+          title: 'Create an account',
+          subtitle: 'Join us to start playing and learning.',
+          illustration: 'Illustration / image here',
+          brand: 'Flag Quiz',
+          lead: 'Sign up to save your scores',
+          nameLabel: 'Name',
+          nameError: 'Name required (min 2 chars)',
+          emailLabel: 'Email',
+          emailError: 'Invalid email',
+          passwordLabel: 'Password',
+          passwordError: 'Password (min 6 characters)',
+          confirmLabel: 'Confirm password',
+          confirmError: "Passwords do not match",
+          tos: "I accept the terms",
+          cancel: 'Cancel',
+          saving: 'Saving...',
+          submit: "Sign up",
+          already: 'Already have an account?',
+          login: 'Log in',
+          error: 'Registration error'
+        },
+        hof: {
+          title: 'Hall of Fame',
+          subtitle: 'Ranking of best games',
+          filterLabel: 'Filter by player',
+          filterPlaceholder: 'Username',
+          player: 'Player',
+          mode: 'Mode',
+          score: 'Score',
+          accuracy: 'Accuracy',
+          date: 'Date',
+          empty: 'No games recorded yet.'
         }
       },
       'es': {
         nav: {
           home: 'Inicio',
           quiz: 'Quiz Banderas',
-          rules: 'Reglas'
+          rules: 'Reglas',
+          inscription: 'Registro',
+          hof: 'Hall of Fame'
         },
         home: {
           title: 'Quiz de Banderas',
@@ -256,8 +329,7 @@ export class SettingsService {
           scores: 'Puntuaciones',
           scoresDescription: 'Sigue tu rendimiento y supera tus récords',
           challenges: 'Desafíos',
-          challengesDescription: 'Diferentes niveles de dificultad'
-          
+          challengesDescription: 'Diferentes niveaux de difficulté'
         },
         rules: {
           title: 'Reglas del Quiz de Banderas',
@@ -332,6 +404,40 @@ export class SettingsService {
           theme: 'Tema',
           light: 'Claro',
           dark: 'Oscuro'
+        },
+        inscription: {                              // <-- nouveau bloc inscription
+          title: 'Crear una cuenta',
+          subtitle: 'Únete para empezar a jugar y aprender.',
+          illustration: 'Ilustración / imagen aquí',
+          brand: 'Flag Quiz',
+          lead: 'Regístrate para guardar tus puntuaciones',
+          nameLabel: 'Nombre',
+          nameError: 'Nombre requerido (mín 2 caracteres)',
+          emailLabel: 'Email',
+          emailError: 'Email inválido',
+          passwordLabel: 'Contraseña',
+          passwordError: 'Contraseña (mín 6 caracteres)',
+          confirmLabel: 'Confirmar contraseña',
+          confirmError: 'Las contraseñas no coinciden',
+          tos: 'Acepto los términos',
+          cancel: 'Cancelar',
+          saving: 'Guardando...',
+          submit: 'Registrarse',
+          already: '¿Ya tienes una cuenta?',
+          login: 'Iniciar sesión',
+          error: 'Error al registrarse'
+        },
+        hof: {
+          title: 'Hall of Fame',
+          subtitle: 'Clasificación de las mejores partidas',
+          filterLabel: 'Filtrar por jugador',
+          filterPlaceholder: 'Usuario',
+          player: 'Jugador',
+          mode: 'Modo',
+          score: 'Puntuación',
+          accuracy: 'Precisión',
+          date: 'Fecha',
+          empty: 'No hay partidas registradas aún.'
         }
       }
     }

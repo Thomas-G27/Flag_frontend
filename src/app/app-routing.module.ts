@@ -5,8 +5,10 @@ import { QuizComponent } from "quiz/quiz.component"
 import { QuizChoiceComponent } from "quiz_choice/quiz_choice.component"
 import { RulesComponent } from "rules/rules.component"
 import { CountriesComponent } from "countries/countries.component"
-import { InscriptionComponent } from "inscription/inscription.component"
-import { HofComponent } from "hof/hof.component"
+import { InscriptionComponent } from "./inscription/inscription.component" 
+import { HofComponent } from "Hof/Hof.component"
+import { LoginComponent } from "./login/login.component"
+import { Hof_adminComponent } from "Hof_admin/Hof_admin.component"
 
 const routes: Routes = [
   { path: "", redirectTo: "/home", pathMatch: "full" },
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: "countries", component: CountriesComponent },
   { path: "inscription", component: InscriptionComponent },
   { path: "hall_of_fame", component: HofComponent },
+  { path: "login", component: LoginComponent },
+  { path: "admin/hall_of_fame", component: Hof_adminComponent }
 ]
 
 @NgModule({

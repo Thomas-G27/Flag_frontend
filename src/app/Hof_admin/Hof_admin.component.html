@@ -1,14 +1,7 @@
 <div class="hof">
 	<div class="header">
-		<h1>🏆 Hall of Fame</h1>
-		<p class="lead">Classement des meilleures parties</p>
-
-		<!--
-		<div class="filter">
-			<label for="userFilter">{{ tr('hof.filterLabel','Filtrer par joueur') }}</label>
-			<input id="userFilter" type="text" [(ngModel)]="usernameFilter" (ngModelChange)="onFilterChange()" placeholder="{{ tr('hof.filterPlaceholder','Nom d\'utilisateur') }}" />
-		</div>
-		-->
+		<h1>🏆 Hall of Fame (Admin)</h1>
+		<p class="lead">Gestion des parties enregistrées</p>
 	</div>
 
 	<div class="table-card" *ngIf="games.length > 0; else empty">
@@ -20,6 +13,8 @@
 					<th>Score</th>
 					<th>Mode</th>
 					<th>Date</th>
+					<th>id</th>
+					<th>Actions</th> 
 				</tr>
 			</thead>
 			<tbody>
@@ -29,6 +24,12 @@
 					<td>{{ game.score }} %</td>
 					<td>{{ game.categorie }}</td>
 					<td>{{ game.date | date:'dd/MM/yyyy HH:mm' }}</td>
+					<td>{{ game.id }}</td>
+					<td>
+						<button class="btn-delete" (click)="deleteGame(game)">
+							Supprimer
+						</button>
+					</td>
 				</tr>
 			</tbody>
 		</table>

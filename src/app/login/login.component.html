@@ -1,0 +1,39 @@
+<!-- <div class="inscription login">
+  <div class="card" role="region" aria-labelledby="login-title">
+    <div class="card-header">
+      <div class="brand">{{ tr('inscription.brand', 'Flag Quiz') }}</div>
+      <h1 id="login-title" class="title">{{ tr('inscription.login','Se connecter') }}</h1>
+      <div class="lead">{{ tr('login.lead', 'Entrez vos identifiants pour accéder à votre compte') }}</div>
+    </div>
+
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="input-group">
+        <label for="email">{{ tr('inscription.emailLabel','Email') }}</label>
+        <input id="email" type="email" formControlName="email" [class.is-invalid]="f.email.touched && f.email.invalid" autocomplete="email" placeholder="{{ tr('inscription.emailLabel','Email') }}" />
+        <div class="helper" *ngIf="f.email.touched && f.email.invalid">{{ tr('inscription.emailError','Email invalide') }}</div>
+      </div>
+
+      <div class="input-group">
+        <label for="password">{{ tr('inscription.passwordLabel','Mot de passe') }}</label>
+        <input id="password" type="password" formControlName="password" [class.is-invalid]="f.password.touched && f.password.invalid" autocomplete="current-password" placeholder="{{ tr('inscription.passwordLabel','Mot de passe') }}" />
+        <div class="helper" *ngIf="f.password.touched && f.password.invalid">{{ tr('inscription.passwordError','Mot de passe requis') }}</div>
+      </div>
+
+      <div *ngIf="error" class="form-error" role="alert">{{ error }}</div>
+
+      <div class="actions">
+        <div class="buttons">
+          <button class="btn ghost" type="button" routerLink="/inscription">{{ tr('inscription.cancel','S\'inscrire') }}</button>
+          <button class="btn primary" type="submit" [disabled]="submitting">
+            <span *ngIf="!submitting">{{ tr('inscription.login','Se connecter') }}</span>
+            <span *ngIf="submitting">{{ tr('inscription.saving','Enregistrement...') }}</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="foot">
+        {{ tr('login.noAccount','Pas de compte ?') }} <a routerLink="/inscription">{{ tr('inscription.submit',"S'inscrire") }}</a>
+      </div>
+    </form>
+  </div>
+</div> -->

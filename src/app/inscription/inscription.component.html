@@ -1,1 +1,103 @@
-<p>inscription works!</p>
+<div class="inscription">
+  <div class="card" role="region" aria-labelledby="inscrip-title">
+    <div class="card-header">
+      <div class="brand">Flag Quiz</div>
+      <h1 id="inscrip-title" class="title">Créer un compte</h1>
+      <div class="lead">Inscrivez-vous pour sauvegarder vos scores</div>
+    </div>
+
+    <!-- Pop-up de succès -->
+    <div *ngIf="successMessage" class="success-message" role="alert">
+      {{ successMessage }}
+    </div>
+
+    <form [formGroup]="inscriptionForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Nom -->
+      <div class="input-group">
+        <label for="name">Nom</label>
+        <input
+          id="name"
+          type="text"
+          formControlName="name"
+          [class.is-invalid]="f['name'].touched && f['name'].invalid"
+          autocomplete="name"
+          placeholder="Nom"
+        />
+        <div class="helper" *ngIf="f['name'].touched && f['name'].invalid">
+          Nom requis (min 2 caractères)
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="input-group">
+        <label for="email">Email</label>
+        <input
+          id="email"
+          type="email"
+          formControlName="email"
+          [class.is-invalid]="f['email'].touched && f['email'].invalid"
+          autocomplete="email"
+          placeholder="Email"
+        />
+        <div class="helper" *ngIf="f['email'].touched && f['email'].invalid">
+          Email invalide
+        </div>
+      </div>
+
+      <!-- Mot de passe -->
+      <div class="input-group">
+        <label for="password">Mot de passe</label>
+        <input
+          id="password"
+          type="password"
+          formControlName="password"
+          [class.is-invalid]="f['password'].touched && f['password'].invalid"
+          autocomplete="new-password"
+          placeholder="Mot de passe"
+        />
+        <div class="helper" *ngIf="f['password'].touched && f['password'].invalid">
+          Mot de passe (min 6 caractères)
+        </div>
+      </div>
+
+      <!-- Confirmation du mot de passe -->
+      <div class="input-group">
+        <label for="confirm">Confirmer le mot de passe</label>
+        <input
+          id="confirm"
+          type="password"
+          formControlName="confirm"
+          [class.is-invalid]="inscriptionForm.hasError('mismatch') && f['confirm'].touched"
+          autocomplete="new-password"
+          placeholder="Confirmer mot de passe"
+        />
+        <div class="helper" *ngIf="inscriptionForm.hasError('mismatch') && f['confirm'].touched">
+          Les mots de passe ne correspondent pas
+        </div>
+      </div>
+
+      <!-- Erreur globale -->
+      <div *ngIf="error" class="form-error" role="alert">{{ error }}</div>
+
+      <!-- Actions -->
+      <div class="actions">
+        <label class="tos">
+          <input type="checkbox" formControlName="tos" />
+          <span>J'accepte les conditions</span>
+        </label>
+
+        <div class="buttons">
+          <button class="btn ghost" type="button" routerLink="/">Annuler</button>
+          <button class="btn primary" type="submit" [disabled]="submitting">
+            <span *ngIf="!submitting">S'inscrire</span>
+            <span *ngIf="submitting">Enregistrement...</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="foot">
+        Déjà un compte ? <a routerLink="/login">Se connecter</a>
+      </div>
+    </form>
+  </div>
+</div>
