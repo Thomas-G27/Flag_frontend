@@ -19,6 +19,7 @@ import { CountriesComponent } from "countries/countries.component"
 import { InscriptionComponent } from "./inscription/inscription.component"
 import { LoginComponent } from "./login/login.component" 
 import { HofComponent } from "Hof/Hof.component"
+import { Hof_adminComponent } from "Hof_admin/Hof_admin.component"
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { HofComponent } from "Hof/Hof.component"
     InscriptionComponent,
     LoginComponent,
     HofComponent,
+    Hof_adminComponent
   ],
   imports: [
     BrowserModule,

@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 export interface Game {
+  id: number;
   score: number;
   date: string;
   categorie: string;
@@ -25,4 +26,7 @@ export class GameService {
   return this.http.post(`${this.apiUrl}`, gameData);
   }
 
+  deleteGame(gameId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}${gameId}`);
+  }
 }
