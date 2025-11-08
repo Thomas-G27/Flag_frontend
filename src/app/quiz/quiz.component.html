@@ -24,14 +24,45 @@
         </div>
     </div>
 
-    <div class="back-btn-container">
-        <button class="btn" routerLink="/quiz_choice">{{ translations.quiz?.back }}</button>
-    </div>
+    
 
     <div class="quiz-content" *ngIf="quizFinished">
         <h2>{{ translations.quiz?.gameOver }}</h2>
         <p>{{ translations.quiz?.yourScore }} : {{ score }} / {{ questions.length }}</p>
-        <button class="btn btn-primary" (click)="restartQuiz()">{{ translations.quiz?.restart }}</button>
-        <button class="btn btn-secondary" routerLink="/">{{ translations.quiz?.backHome }}</button>
+        <div class="actions">
+
+            <button class="btn btn-save" (click)="openSavePopup()">
+                Sauvegarder ma partie
+            </button>
+            <button class="btn btn-primary" (click)="restartQuiz()">
+                {{ translations.quiz?.restart }}
+            </button>
+            
+        </div>
+
+        <div class="popup-backdrop" *ngIf="showSavePopup">
+            <div class="popup-card">
+                <h3>Sauvegarder la partie</h3>
+                <p>Entrez votre nom d'utilisateur :</p>
+
+                <input type="text" [(ngModel)]="savedUsername" placeholder="Nom d'utilisateur" />
+
+                <div class="popup-actions">
+                    <button class="btn btn-primary" (click)="saveGame()" *ngIf="!saveSuccess">Sauvegarder</button>
+                    <button class="btn btn-secondary" (click)="closeSavePopup()">Annuler</button>
+                </div>
+
+                <div *ngIf="saveSuccess" class="success-message">
+                    Partie sauvegardée avec succès !
+                </div>
+                <div *ngIf="saveError" class="form-error">
+                    Erreur : {{ saveError }}
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="back-btn-container">
+        <button class="btn" routerLink="/quiz_choice">{{ translations.quiz?.back }}</button>
     </div>
 </div>
