@@ -63,7 +63,7 @@ export class InscriptionComponent implements OnInit {
       error: (err) => {
         this.submitting = false;
         console.error(err);
-        this.error = "Erreur lors de l'inscription. Veuillez réessayer.";
+        this.error = err?.error.message || "Erreur lors de l'inscription. Veuillez réessayer.";
       }
     });
   }
