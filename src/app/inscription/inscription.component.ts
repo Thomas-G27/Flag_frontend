@@ -1,92 +1,165 @@
-import { Component, OnInit, OnDestroy } from '@angular/core'
-import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
-import { Router } from '@angular/router'
-import { UserService } from '../services/user.service'
-import { SettingsService } from '../services/settings.service'
-import { Subscription } from 'rxjs'
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
+import { UserService, user } from '../services/user.service';
 
 @Component({
   selector: 'app-inscription',
   templateUrl: './inscription.component.html',
   styleUrls: ['./inscription.component.scss']
 })
-export class InscriptionComponent implements OnInit, OnDestroy {
-  inscriptionForm: FormGroup
-  submitting = false
-  error: string | null = null
+export class InscriptionComponent implements OnInit {
 
-  private langSub?: Subscription
-  private translations: any = {}
+  inscriptionForm!: FormGroup;
+  submitting = false;
+  error: string | null = null;
+  successMessage: string | null = null;
 
-  constructor(
-    private fb: FormBuilder,
-    private userService: UserService,
-    private router: Router,
-    private settings: SettingsService
-  ) {
+  constructor(private fb: FormBuilder, private userService: UserService) {}
+
+  ngOnInit(): void {
     this.inscriptionForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
-      confirm: ['', [Validators.required]],
-      tos: [false, [Validators.requiredTrue]]
-    }, { validators: this.passwordsMatch })
+      confirm: ['', Validators.required],
+      tos: [false, Validators.requiredTrue]
+    }, { validators: this.passwordMatchValidator });
   }
 
-  ngOnInit(): void {
-    this.translations = this.settings.getTranslation(this.settings.getCurrentLanguage()) || {}
-    this.langSub = this.settings.language$.subscribe(lang => {
-      this.translations = this.settings.getTranslation(lang) || {}
-    })
+  // validation personnalisée pour confirmer le mdp
+  passwordMatchValidator(group: AbstractControl): ValidationErrors | null {
+    const pass = group.get('password')?.value;
+    const confirm = group.get('confirm')?.value;
+    return pass === confirm ? null : { mismatch: true };
   }
 
-  ngOnDestroy(): void {
-    this.langSub?.unsubscribe()
-  }
-
-  // typed controls -> permet d'utiliser f.name, f.email ... dans le template
-  get f(): {
-    name: AbstractControl
-    email: AbstractControl
-    password: AbstractControl
-    confirm: AbstractControl
-    tos: AbstractControl
-  } {
-    return this.inscriptionForm.controls as any
-  }
-
-  tr(path: string, fallback = ''): string {
-    if (!this.translations) return fallback
-    const parts = path.split('.')
-    let cur: any = this.translations
-    for (const p of parts) {
-      if (cur && typeof cur === 'object' && p in cur) cur = cur[p]
-      else return fallback
-    }
-    return typeof cur === 'string' ? cur : fallback
-  }
-
-  private passwordsMatch(group: FormGroup) {
-    return group.get('password')!.value === group.get('confirm')!.value ? null : { mismatch: true }
-  }
+  get f() { return this.inscriptionForm.controls; }
 
   onSubmit(): void {
-    this.error = null
     if (this.inscriptionForm.invalid) {
-      this.inscriptionForm.markAllAsTouched()
-      return
+      this.inscriptionForm.markAllAsTouched();
+      return;
     }
-    this.submitting = true
-    const { name, email, password } = this.inscriptionForm.value
-    this.userService.register({ name, email, password }).subscribe({
-      next: () => {
-        this.submitting = false
-        this.router.navigate(['/'])
+
+    this.submitting = true;
+    this.error = null;
+
+    const newUser: user = {
+      name: this.f['name'].value,
+      email: this.f['email'].value,
+      mdp: this.f['password'].value,
+      is_admin: false
+    };
+
+    this.userService.addUser(newUser).subscribe({
+      next: (res) => {
+        this.submitting = false;
+        this.successMessage = res.message || 'Inscription réussie !';
+        this.inscriptionForm.reset();
+
+        // Le message disparaît après quelques secondes
+        setTimeout(() => this.successMessage = null, 4000);
       },
       error: (err) => {
-        this.submitting = false
-        this.error = err?.message || this.tr('inscription.error', "Erreur lors de l'inscription")
+        this.submitting = false;
+        console.error(err);
+        this.error = "Erreur lors de l'inscription. Veuillez réessayer.";
       }
-    })
+    });
   }
 }
+
+
+
+// import { Component, OnInit, OnDestroy } from '@angular/core'
+// import { FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms'
+// import { Router } from '@angular/router'
+// import { UserService } from '../services/user.service'
+// import { SettingsService } from '../services/settings.service'
+// import { Subscription } from 'rxjs'
+
+// @Component({
+//   selector: 'app-inscription',
+//   templateUrl: './inscription.component.html',
+//   styleUrls: ['./inscription.component.scss']
+// })
+// export class InscriptionComponent implements OnInit, OnDestroy {
+//   inscriptionForm: FormGroup
+//   submitting = false
+//   error: string | null = null
+
+//   private langSub?: Subscription
+//   private translations: any = {}
+
+//   constructor(
+//     private fb: FormBuilder,
+//     private userService: UserService,
+//     private router: Router,
+//     private settings: SettingsService
+//   ) {
+//     this.inscriptionForm = this.fb.group({
+//       name: ['', [Validators.required, Validators.minLength(2)]],
+//       email: ['', [Validators.required, Validators.email]],
+//       password: ['', [Validators.required, Validators.minLength(6)]],
+//       confirm: ['', [Validators.required]],
+//       tos: [false, [Validators.requiredTrue]]
+//     }, { validators: this.passwordsMatch })
+//   }
+
+//   ngOnInit(): void {
+//     this.translations = this.settings.getTranslation(this.settings.getCurrentLanguage()) || {}
+//     this.langSub = this.settings.language$.subscribe(lang => {
+//       this.translations = this.settings.getTranslation(lang) || {}
+//     })
+//   }
+
+//   ngOnDestroy(): void {
+//     this.langSub?.unsubscribe()
+//   }
+
+//   // typed controls -> permet d'utiliser f.name, f.email ... dans le template
+//   get f(): {
+//     name: AbstractControl
+//     email: AbstractControl
+//     password: AbstractControl
+//     confirm: AbstractControl
+//     tos: AbstractControl
+//   } {
+//     return this.inscriptionForm.controls as any
+//   }
+
+//   tr(path: string, fallback = ''): string {
+//     if (!this.translations) return fallback
+//     const parts = path.split('.')
+//     let cur: any = this.translations
+//     for (const p of parts) {
+//       if (cur && typeof cur === 'object' && p in cur) cur = cur[p]
+//       else return fallback
+//     }
+//     return typeof cur === 'string' ? cur : fallback
+//   }
+
+//   private passwordsMatch(group: FormGroup) {
+//     return group.get('password')!.value === group.get('confirm')!.value ? null : { mismatch: true }
+//   }
+
+//   onSubmit(): void {
+//     this.error = null
+//     if (this.inscriptionForm.invalid) {
+//       this.inscriptionForm.markAllAsTouched()
+//       return
+//     }
+//     this.submitting = true
+//     const { name, email, password } = this.inscriptionForm.value
+//     this.userService.register({ name, email, password }).subscribe({
+//       next: () => {
+//         this.submitting = false
+//         this.router.navigate(['/'])
+//       },
+//       error: (err) => {
+//         this.submitting = false
+//         this.error = err?.message || this.tr('inscription.error', "Erreur lors de l'inscription")
+//       }
+//     })
+//   }
+// }

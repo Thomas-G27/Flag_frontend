@@ -27,6 +27,13 @@ export class QuizComponent implements OnInit, OnDestroy {
   score: number = 0;
   quizFinished: boolean = false;
 
+  // sauvegarde de la partie
+  showSavePopup = false;
+  savedUsername = '';
+  saveSuccess = false;
+  saveError: string | null = null;
+  successMessage: string | null = null;
+
   // paramètres du quiz
   quizType: string = 'world';
   selectedContinent?: string;
@@ -148,6 +155,48 @@ export class QuizComponent implements OnInit, OnDestroy {
     this.buildQuestions();
   }
 
+  openSavePopup(): void {
+    this.showSavePopup = true;
+    this.saveSuccess = false;
+    this.saveError = null;
+  }
+
+  closeSavePopup(): void {
+    this.showSavePopup = false;
+    this.savedUsername = '';
+    this.saveSuccess = false;
+    this.saveError = null;
+  }
+
+  saveGame(): void {
+    if (!this.savedUsername.trim()) {
+      this.saveError = "Veuillez entrer un nom d'utilisateur.";
+      return;
+    }
+
+    const gameData = {
+      score: parseFloat((this.score / this.questions.length * 100.0).toFixed(2)),
+      categorie: this.quizType,
+      utilisateur_name: this.savedUsername.trim()
+    };
+
+    this.gameService.addGame(gameData).subscribe({
+      next: (res) => {
+        this.saveSuccess = true;
+        this.saveError = null;
+        this.successMessage = res.message || "Partie enregistrée avec succès !";
+
+        // Ferme le popup après un délai
+        
+        setTimeout(() => this.closeSavePopup(), 2500);
+      },
+      error: (err) => {
+        console.error(err);
+        this.saveError = "Impossible d'enregistrer la partie.";
+        this.saveSuccess = false;
+      }
+    });
+  }
   // private saveResult(): void {
   //   const user = this.userService.getCurrentUser();
   //   const username = user?.name || 'Guest';
@@ -160,10 +209,4 @@ export class QuizComponent implements OnInit, OnDestroy {
   //   });
   // }
 
-  // convertit un emoji drapeau en code ISO (utile si backend renvoie emoji)
-  emojiToCountryCode(emoji: string): string {
-    if (!emoji) return '';
-    const codePoints = Array.from(emoji, (char) => char.codePointAt(0)! - 127397);
-    return codePoints.map(cp => String.fromCharCode(cp)).join('').toLowerCase();
-  }
 }

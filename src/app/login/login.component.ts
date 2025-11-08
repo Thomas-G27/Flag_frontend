@@ -56,23 +56,23 @@ export class LoginComponent implements OnInit, OnDestroy {
     return typeof cur === 'string' ? cur : fallback
   }
 
-  onSubmit(): void {
-    this.error = null
-    if (this.loginForm.invalid) {
-      this.loginForm.markAllAsTouched()
-      return
-    }
-    this.submitting = true
-    const { email, password } = this.loginForm.value
-    this.userService.login(email, password).subscribe({
-      next: () => {
-        this.submitting = false
-        this.router.navigate(['/'])
-      },
-      error: (err) => {
-        this.submitting = false
-        this.error = err?.message || this.tr('inscription.error', 'Erreur lors de la connexion')
-      }
-    })
-  }
+  // onSubmit(): void {
+  //   this.error = null
+  //   if (this.loginForm.invalid) {
+  //     this.loginForm.markAllAsTouched()
+  //     return
+  //   }
+  //   this.submitting = true
+  //   const { email, password } = this.loginForm.value
+  //   this.userService.login(email, password).subscribe({
+  //     next: () => {
+  //       this.submitting = false
+  //       this.router.navigate(['/'])
+  //     },
+  //     error: (err) => {
+  //       this.submitting = false
+  //       this.error = err?.message || this.tr('inscription.error', 'Erreur lors de la connexion')
+  //     }
+  //   })
+  // }
 }
