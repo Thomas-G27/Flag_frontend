@@ -17,6 +17,7 @@ import { QuizChoiceComponent } from "./quiz_choice/quiz_choice.component"
 import { HttpClientModule } from "@angular/common/http"
 import { CountriesComponent } from "countries/countries.component"
 import { InscriptionComponent } from "./inscription/inscription.component"
+import { ConnexionComponent } from "connexion/connexion.component"
 import { LoginComponent } from "./login/login.component" 
 import { HofComponent } from "Hof/Hof.component"
 import { Hof_adminComponent } from "Hof_admin/Hof_admin.component"
@@ -34,6 +35,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     QuizChoiceComponent,
     CountriesComponent,
     InscriptionComponent,
+    ConnexionComponent,
     LoginComponent,
     HofComponent,
     Hof_adminComponent

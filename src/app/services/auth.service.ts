@@ -4,6 +4,13 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
 
+export interface user {
+  name: string
+  email: string
+  mdp: string
+  is_admin?: boolean
+}
+
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = 'http://localhost:8080/api/auth';
@@ -20,8 +27,9 @@ export class AuthService {
       );
   }
 
-  register(user: any): Observable<any> {
-    return this.http.post(`${this.apiUrl}/register`, user);
+  register(user: user): Observable<{ response: number; message: string }> {
+    return this.http.post<{ response: number; message: string }>
+                          (`${this.apiUrl}/register`, user);
   }
 
   logout() {

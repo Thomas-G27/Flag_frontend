@@ -1,0 +1,38 @@
+<div class="inscription login">
+  <div class="card" role="region" aria-labelledby="login-title">
+    <div class="card-header">
+      <div class="brand">Flag Quiz</div>
+      <h1 id="login-title" class="title">Se connecter</h1>
+      <div class="lead">Entrez vos identifiants pour accéder à votre compte</div>
+    </div>
+
+    <form [formGroup]="connexionForm" (ngSubmit)="onSubmit()" novalidate>
+      <div class="input-group">
+        <label for="name">Nom</label>
+        <input id="name" type="text" formControlName="name" [class.is-invalid]="f['name'].touched && f['name'].invalid" autocomplete="email" placeholder="Nom de l'utilisateur" />
+        <div class="helper" *ngIf="f['name'].touched && f['name'].invalid">Nom invalide</div>
+      </div>
+
+      <div class="input-group">
+        <label for="password">Mot de passe</label>
+        <input id="password" type="password" formControlName="password" [class.is-invalid]="f['password'].touched && f['password'].invalid" autocomplete="current-password" placeholder="Mot de passe" />
+        <div class="helper" *ngIf="f['password'].touched && f['password'].invalid">Mot de passe requis</div>
+      </div>
+
+      <div *ngIf="error" class="form-error" role="alert">{{ error }}</div>
+
+      <div class="actions" style="justify-content: center;">
+        <div class="buttons">
+          <button class="btn primary" type="submit" [disabled]="submitting">
+            <span *ngIf="!submitting">Se connecter</span>
+            <span *ngIf="submitting">Enregistrement...</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="foot">
+        Pas de compte <a routerLink="/inscription">S'inscrire</a>
+      </div>
+    </form>
+  </div>
+</div>

@@ -26,7 +26,7 @@ export class UserService {
   }
 
   addUser(user: user): Observable<{ response: number; message: string }> {
-  return this.http.post<{ response: number; message: string }>(
+    return this.http.post<{ response: number; message: string }>(
                         `${this.apiUrl}utilisateurs/`,user);
   }
 
