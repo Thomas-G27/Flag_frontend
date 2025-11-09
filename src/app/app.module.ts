@@ -20,6 +20,8 @@ import { InscriptionComponent } from "./inscription/inscription.component"
 import { LoginComponent } from "./login/login.component" 
 import { HofComponent } from "Hof/Hof.component"
 import { Hof_adminComponent } from "Hof_admin/Hof_admin.component"
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -47,7 +49,8 @@ import { Hof_adminComponent } from "Hof_admin/Hof_admin.component"
     MatButtonModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {

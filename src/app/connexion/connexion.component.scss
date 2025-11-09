@@ -1,0 +1,5 @@
+@import '../inscription/inscription.component.scss';
+/* si import échoue, le même style s'applique via .inscription.login { ... } */
+.inscription.login {
+  .card { max-width: 460px; }
+}
