@@ -51,7 +51,14 @@
         </button>
       </div>
     </div>
-  </div>
+
+    <!-- Section Déconnexion -->
+    <div class="settings-section" *ngIf="is_user_logged_in()">
+      <div class="section-title" (click)="deconnexion()" style="cursor: pointer; color: red;">
+        <mat-icon>logout</mat-icon>
+        <span>Déconnexion</span>
+      </div>
+    </div>
 
   <!-- Overlay pour fermer en cliquant à l'extérieur -->
   <div class="settings-overlay" *ngIf="isOpen" (click)="closeSettings()"></div>
