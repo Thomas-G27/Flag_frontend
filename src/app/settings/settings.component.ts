@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core"
 import { SettingsService } from "../services/settings.service"
+import { AuthService } from "services/auth.service"
 
 @Component({
   selector: "settings",
@@ -17,7 +18,7 @@ export class SettingsComponent implements OnInit {
     { code: 'es', name: 'Español', flag: '🇪🇸' }
   ]
 
-  constructor(private settingsService: SettingsService) {}
+  constructor(private settingsService: SettingsService, private authService: AuthService) {}
 
   ngOnInit(): void {
     this.currentLanguage = this.settingsService.getCurrentLanguage()
@@ -41,5 +42,13 @@ export class SettingsComponent implements OnInit {
   toggleTheme(): void {
     this.currentTheme = this.currentTheme === 'light' ? 'dark' : 'light'
     this.settingsService.setTheme(this.currentTheme)
+  }
+
+  is_user_logged_in(): boolean {
+    return this.authService.isLoggedIn()
+  }
+  
+  deconnexion(): void {
+    this.authService.logout()
   }
 }

@@ -17,9 +17,12 @@ import { QuizChoiceComponent } from "./quiz_choice/quiz_choice.component"
 import { HttpClientModule } from "@angular/common/http"
 import { CountriesComponent } from "countries/countries.component"
 import { InscriptionComponent } from "./inscription/inscription.component"
+import { ConnexionComponent } from "connexion/connexion.component"
 import { LoginComponent } from "./login/login.component" 
 import { HofComponent } from "Hof/Hof.component"
 import { Hof_adminComponent } from "Hof_admin/Hof_admin.component"
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
+import { AuthInterceptor } from './auth/auth.interceptor';
 
 @NgModule({
   declarations: [
@@ -32,6 +35,7 @@ import { Hof_adminComponent } from "Hof_admin/Hof_admin.component"
     QuizChoiceComponent,
     CountriesComponent,
     InscriptionComponent,
+    ConnexionComponent,
     LoginComponent,
     HofComponent,
     Hof_adminComponent
@@ -47,7 +51,8 @@ import { Hof_adminComponent } from "Hof_admin/Hof_admin.component"
     MatButtonModule,
     HttpClientModule,
   ],
-  providers: [],
+  providers: [
+  { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }],
   bootstrap: [AppComponent],
 })
 export class AppModule {

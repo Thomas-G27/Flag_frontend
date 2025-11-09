@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, AbstractControl, ValidationErrors } from '@angular/forms';
 import { UserService, user } from '../services/user.service';
+import { AuthService } from 'services/auth.service';
 
 @Component({
   selector: 'app-inscription',
@@ -14,7 +15,9 @@ export class InscriptionComponent implements OnInit {
   error: string | null = null;
   successMessage: string | null = null;
 
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(
+    private fb: FormBuilder, 
+    private authService: AuthService) {}
 
   ngOnInit(): void {
     this.inscriptionForm = this.fb.group({
@@ -22,7 +25,7 @@ export class InscriptionComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirm: ['', Validators.required],
-      tos: [false, Validators.requiredTrue]
+      tos: [false, Validators.requiredTrue] // les terme of service sinon ça fait pas vrai site mdr
     }, { validators: this.passwordMatchValidator });
   }
 
@@ -51,7 +54,7 @@ export class InscriptionComponent implements OnInit {
       is_admin: false
     };
 
-    this.userService.addUser(newUser).subscribe({
+    this.authService.register(newUser).subscribe({
       next: (res) => {
         this.submitting = false;
         this.successMessage = res.message || 'Inscription réussie !';
