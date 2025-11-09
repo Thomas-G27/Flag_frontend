@@ -16,8 +16,7 @@
         <ul>
           <li>{{ translations.rules?.step1 || 'Un drapeau s\'affiche à l\'écran' }}</li>
           <li>{{ translations.rules?.step2 || 'Vous tapez le nom du pays dans le champ de saisie' }}</li>
-          <li>{{ translations.rules?.step3 || 'Si c\'est correct, vous passez automatiquement au drapeau suivant' }}</li>
-          <li>{{ translations.rules?.step4 || 'Si vous ne trouvez pas, vous pouvez passer au suivant avec le bouton "Skip"' }}</li>
+          <li>Vous validez et passez automatiquement au drapeau suivant</li>
         </ul>
       </div>
     </div>
@@ -41,10 +40,6 @@
           <div class="point-item">
             <span class="point-value">{{ translations.rules?.pointFinal || 'Score final' }}</span>
             <span class="point-desc">{{ translations.rules?.pointFinalDesc || 'Nombre de bonnes réponses / Total' }}</span>
-          </div>
-          <div class="point-item">
-            <span class="point-value">{{ translations.rules?.pointSeries || 'Série' }}</span>
-            <span class="point-desc">{{ translations.rules?.pointSeriesDesc || 'Suivi de vos bonnes réponses consécutives' }}</span>
           </div>
         </div>
       </div>
@@ -99,12 +94,8 @@
             <span class="control-desc">{{ translations.rules?.controlInputDesc || 'Tapez le nom du pays et appuyez sur Entrée' }}</span>
           </div>
           <div class="control-item">
-            <span class="control-key">⏭️ {{ translations.rules?.controlSkip || 'Skip' }}</span>
-            <span class="control-desc">{{ translations.rules?.controlSkipDesc || 'Cliquez sur "Skip" ou appuyez sur Espace pour passer' }}</span>
-          </div>
-          <div class="control-item">
             <span class="control-key">✅ {{ translations.rules?.controlAuto || 'Auto' }}</span>
-            <span class="control-desc">{{ translations.rules?.controlAutoDesc || 'Passage automatique au suivant si la réponse est correcte' }}</span>
+            <span class="control-desc">Passage automatique au suivant une fois la réponse donnée</span>
           </div>
           <div class="control-item">
             <span class="control-key">📊 {{ translations.rules?.controlScore || 'Score' }}</span>
@@ -125,8 +116,8 @@
           <div class="tip-item">
             <span class="tip-icon">⌨️</span>
             <div class="tip-content">
-              <h4>{{ translations.rules?.tipFast || 'Tapez rapidement' }}</h4>
-              <p>{{ translations.rules?.tipFastDesc || 'Pas besoin d\'être parfait : "france", "France" ou "FRANCE" fonctionnent' }}</p>
+              <h4>Tapez en anglais</h4>
+              <p>Les pays ne sont pas encore traduit</p>
             </div>
           </div>
           <div class="tip-item">
@@ -134,13 +125,6 @@
             <div class="tip-content">
               <h4>{{ translations.rules?.tipGeo || 'Pensez géographie' }}</h4>
               <p>{{ translations.rules?.tipGeoDesc || 'Associez les couleurs et symboles à l\'histoire du pays' }}</p>
-            </div>
-          </div>
-          <div class="tip-item">
-            <span class="tip-icon">⏭️</span>
-            <div class="tip-content">
-              <h4>{{ translations.rules?.tipSkip || 'N\'hésitez pas à skip' }}</h4>
-              <p>{{ translations.rules?.tipSkipDesc || 'Mieux vaut passer et continuer que de rester bloqué' }}</p>
             </div>
           </div>
           <div class="tip-item">
