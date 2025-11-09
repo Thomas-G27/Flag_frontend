@@ -31,7 +31,7 @@
         <p>{{ translations.quiz?.yourScore }} : {{ score }} / {{ questions.length }}</p>
         <div class="actions">
 
-            <button class="btn btn-save" (click)="openSavePopup()">
+            <button class="btn btn-save" (click)="saveGame()" *ngIf="!saveSuccess">
                 Sauvegarder ma partie
             </button>
             <button class="btn btn-primary" (click)="restartQuiz()">
@@ -40,18 +40,8 @@
             
         </div>
 
-        <div class="popup-backdrop" *ngIf="showSavePopup">
+        <div class="popup-backdrop" *ngIf="this.showSavePopup">
             <div class="popup-card">
-                <h3>Sauvegarder la partie</h3>
-                <p>Entrez votre nom d'utilisateur :</p>
-
-                <input type="text" [(ngModel)]="savedUsername" placeholder="Nom d'utilisateur" />
-
-                <div class="popup-actions">
-                    <button class="btn btn-primary" (click)="saveGame()" *ngIf="!saveSuccess">Sauvegarder</button>
-                    <button class="btn btn-secondary" (click)="closeSavePopup()">Annuler</button>
-                </div>
-
                 <div *ngIf="saveSuccess" class="success-message">
                     Partie sauvegardée avec succès !
                 </div>

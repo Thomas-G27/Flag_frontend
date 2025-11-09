@@ -5,6 +5,7 @@ import { SettingsService } from '../services/settings.service';
 import { Pays, PaysService } from '../services/pays.service';
 import { GameService } from '../services/game.service';
 import { UserService } from '../services/user.service';
+import {jwtDecode} from 'jwt-decode';
 
 interface Question {
   flagUrl: string;
@@ -157,27 +158,22 @@ export class QuizComponent implements OnInit, OnDestroy {
 
   openSavePopup(): void {
     this.showSavePopup = true;
-    this.saveSuccess = false;
     this.saveError = null;
   }
 
   closeSavePopup(): void {
     this.showSavePopup = false;
     this.savedUsername = '';
-    this.saveSuccess = false;
-    this.saveError = null;
   }
 
   saveGame(): void {
-    if (!this.savedUsername.trim()) {
-      this.saveError = "Veuillez entrer un nom d'utilisateur.";
-      return;
-    }
 
+    const decoded: any = jwtDecode(localStorage.getItem('jwt_token')!);
+    const username = decoded.sub;
     const gameData = {
       score: parseFloat((this.score / this.questions.length * 100.0).toFixed(2)),
-      categorie: this.quizType,
-      utilisateur_name: this.savedUsername.trim()
+      categorie: this.selectedContinent?.toLowerCase() || this.selectedLanguage?.toLowerCase() || 'world',
+      utilisateur_name: username
     };
 
     this.gameService.addGame(gameData).subscribe({
@@ -187,7 +183,7 @@ export class QuizComponent implements OnInit, OnDestroy {
         this.successMessage = res.message || "Partie enregistrée avec succès !";
 
         // Ferme le popup après un délai
-        
+        this.openSavePopup();
         setTimeout(() => this.closeSavePopup(), 2500);
       },
       error: (err) => {
