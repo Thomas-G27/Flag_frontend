@@ -52,7 +52,13 @@
       </div>
     </div>
 
-    <!-- Section Déconnexion -->
+    <!-- Section Connexion/Déconnexion -->
+    <div class="settings-section" *ngIf="!is_user_logged_in()">
+      <div class="section-title" routerLink="/connexion" style="cursor: pointer;">
+        <mat-icon>login</mat-icon>
+        <span>Connexion</span>
+      </div>
+    </div>
     <div class="settings-section" *ngIf="is_user_logged_in()">
       <div class="section-title" (click)="deconnexion()" style="cursor: pointer; color: red;">
         <mat-icon>logout</mat-icon>

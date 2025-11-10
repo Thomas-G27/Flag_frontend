@@ -3,12 +3,23 @@
 		<h1>🏆 Hall of Fame</h1>
 		<p class="lead">Classement des meilleures parties</p>
 
-		<!--
+		<!-- Filtres -->
 		<div class="filter">
-			<label for="userFilter">{{ tr('hof.filterLabel','Filtrer par joueur') }}</label>
-			<input id="userFilter" type="text" [(ngModel)]="usernameFilter" (ngModelChange)="onFilterChange()" placeholder="{{ tr('hof.filterPlaceholder','Nom d\'utilisateur') }}" />
+			<input
+				type="text"
+				placeholder="Filtrer par joueur..."
+				[(ngModel)]="usernameFilter"
+				(input)="onUsernameInput()"
+				[disabled]="categoryFilter.trim().length > 0"
+			/>
+			<input
+				type="text"
+				placeholder="Filtrer par catégorie..."
+				[(ngModel)]="categoryFilter"
+				(input)="onCategoryInput()"
+				[disabled]="usernameFilter.trim().length > 0"
+			/>
 		</div>
-		-->
 	</div>
 
 	<div class="table-card" *ngIf="games.length > 0; else empty">
@@ -35,6 +46,6 @@
 	</div>
 
 	<ng-template #empty>
-		<div class="empty">Aucune partie enregistrée pour le moment.</div>
+		<div class="empty">Aucune partie enregistrée sous ce nom/dans cette catégorie.</div>
 	</ng-template>
 </div>

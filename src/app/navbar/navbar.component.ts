@@ -36,9 +36,8 @@ export class NavbarComponent implements OnInit, OnDestroy {
     const translations = this.translations || this.settingsService.getTranslation(this.currentLanguage)
     this.links = [
       { name: ` ${translations.nav.home}`, href: "home" },
-      { name: ` ${translations.nav.quiz}`, href: "quiz_choice" },
       { name: ` ${translations.nav.rules}`, href: "rules" },
-      { name: ` ${translations.nav.inscription}`, href: "inscription" },
+      { name: ` ${translations.nav.quiz}`, href: "quiz_choice" },
       { name: ` ${translations.nav.hof}`, href: "hall_of_fame" }
     ]
   }

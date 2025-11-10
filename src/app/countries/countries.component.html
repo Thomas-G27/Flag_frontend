@@ -1,9 +1,48 @@
-<h2>Liste des pays</h2>
-<ul>
-  <li *ngFor="let p of paysList" (click)="onSelectPays(p.flag)" >
-    <img [src]="'https://flagcdn.com/w320/' + p.flag.toLowerCase() + '.png'" alt="drapeau" width="200" class="flag"> {{ p.name }}
+<div class="countries">
+  <div class="header">
+    <h1>🌍 Liste des pays</h1>
 
-  </li>
-</ul>
+    <!-- Filtres -->
+    <div class="filter">
+      <!-- Sélecteur de continent -->
+      <div>
+        <label>Continent :</label>
+        <select [(ngModel)]="continentFilter" 
+                (change)="onContinentInput()"
+                [disabled]="languageFilter.trim().length > 0">
+          <option value="">All</option>
+          <option *ngFor="let c of continents" [value]="c">{{ c }}</option>
+        </select>
+      </div>
 
+      <!-- Filtre de langue -->
+      <div>
+        <label>Langue :</label>
+        <select [(ngModel)]="languageFilter" 
+                (change)="onLanguageInput()"
+                [disabled]="continentFilter.trim().length > 0">
+          <option value="">All</option>
+          <option *ngFor="let l of langues" [value]="l">{{ l }}</option>
+        </select>
+      </div>
+    </div>
 
+    <p class="lead">Astuce : resélectionez "All" pour changer de filtre</p>
+
+    <!-- Bouton reset -->
+    <div class="countries-actions">
+      <button class="btn btn-primary" (click)="resetFilters()">⚙️ Réinitialiser</button>
+    </div>
+  </div>
+
+  <!-- Liste des pays -->
+  <ul>
+    <li *ngFor="let p of paysList" (click)="onSelectPays(p.flag)">
+      <img [src]="'https://flagcdn.com/w320/' + p.flag.toLowerCase() + '.png'"
+           alt="drapeau"
+           width="200"
+           class="flag" />
+      <p href="" style="justify-content: center;">{{ p.name }}</p>
+    </li>
+  </ul>
+</div>

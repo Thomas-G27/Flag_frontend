@@ -29,4 +29,12 @@ export class GameService {
   deleteGame(gameId: number): Observable<void> {
     return this.http.delete<void>(`${this.apiUrl}${gameId}`);
   }
+
+  getGamesByUser(username: string): Observable<Game[]> {
+    return this.http.get<Game[]>(`${this.apiUrl}utilisateur/${username}`);
+  }
+
+  getGamesByCategory(category: string): Observable<Game[]> {
+    return this.http.get<Game[]>(`${this.apiUrl}categorie/${category}`);
+  }
 }
