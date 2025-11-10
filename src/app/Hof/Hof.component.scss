@@ -19,6 +19,13 @@
   align-items: center;
 }
 
+.filter input[disabled] {
+  background: #f3f4f6;
+  color: #9ca3af;
+  cursor: not-allowed;
+}
+
+
 .filter input {
   height: 40px;
   padding: 0 .75rem;
