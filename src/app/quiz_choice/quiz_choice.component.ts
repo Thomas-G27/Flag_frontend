@@ -45,6 +45,14 @@ export class QuizChoiceComponent implements OnInit {
       color: '#16a34a',
       selectedFlagsCount: 10,
       selectedLanguage: 'French'
+    },
+    {
+      id: 'capital',
+      name: 'Capitale',
+      description: 'Devine la capitale liée au drapeau',
+      icon: '🏙️',
+      color: '#d97706',
+      selectedFlagsCount: 10
     }
   ];
 

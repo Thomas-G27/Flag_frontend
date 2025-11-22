@@ -4,6 +4,7 @@
         <div class="question">
             <p>{{ currentQuestionIndex + 1 }}/{{ questions.length }}</p>
             <img [src]="questions[currentQuestionIndex].flagUrl" alt="Drapeau" width="200">
+            <p *ngIf="questions[currentQuestionIndex].tips">{{ questions[currentQuestionIndex].tips }}</p>
         </div>
         <form class="answer" (ngSubmit)="submitAnswer()">
             <input 

@@ -6,6 +6,7 @@ export interface Pays {
   id: number;
   name: string;
   flag: string;
+  capital: string;
 }
 
 @Injectable({
@@ -34,5 +35,9 @@ export class PaysService {
 
   getPaysByLanguage(language: String): Observable<Pays[]> {
     return this.http.get<Pays[]>(`${this.apiUrl}languages/${language}/countries`);
+  }
+
+  getAllWithCapital(): Observable<Pays[]> {
+    return this.http.get<Pays[]>(`${this.apiUrl}countries/with-capital`);
   }
 }
