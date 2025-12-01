@@ -9,6 +9,7 @@ import {jwtDecode} from 'jwt-decode';
 
 interface Question {
   flagUrl: string;
+  tips: string;
   answers: string[];
 }
 
@@ -87,6 +88,8 @@ export class QuizComponent implements OnInit, OnDestroy {
       fetch$ = this.paysService.getPaysByContinent(this.selectedContinent);
     } else if (this.quizType === 'language' && this.selectedLanguage) {
       fetch$ = this.paysService.getPaysByLanguage(this.selectedLanguage);
+    } else if (this.quizType === 'capital') {
+      fetch$ = this.paysService.getAllWithCapital();
     } else {
       fetch$ = this.paysService.getAllPays();
     }
@@ -94,7 +97,11 @@ export class QuizComponent implements OnInit, OnDestroy {
     fetch$.subscribe({
       next: (data: Pays[]) => {
         this.paysList = this.shuffleArray(data).slice(0, this.questionCount);
+        if (this.quizType === 'capital') {
+          this.buildQuestionsForCapital();
+        } else {
         this.buildQuestions();
+        }
       },
       error: (err) => console.error('Erreur de chargement des pays', err)
     });
@@ -104,7 +111,22 @@ export class QuizComponent implements OnInit, OnDestroy {
   buildQuestions(): void {
     this.questions = this.paysList.map(pays => ({
       flagUrl: `https://flagcdn.com/w320/${pays.flag.toLowerCase()}.png`,
+      tips: pays.capital ? `Capitale: ${pays.capital}` : '',
       answers: [pays.name.toLowerCase()]
+    }));
+
+    this.currentQuestionIndex = 0;
+    this.score = 0;
+    this.quizFinished = false;
+    this.feedback = '';
+    this.userAnswer = '';
+  }
+  // Crée les questions à partir de la liste des pays
+  buildQuestionsForCapital(): void {
+    this.questions = this.paysList.map(pays => ({
+      flagUrl: `https://flagcdn.com/w320/${pays.flag.toLowerCase()}.png`,
+      tips: pays.name ? `Pays: ${pays.name}` : '', 
+      answers: [pays.capital.toLowerCase()]
     }));
 
     this.currentQuestionIndex = 0;
@@ -124,18 +146,19 @@ export class QuizComponent implements OnInit, OnDestroy {
     const currentQuestion = this.questions[this.currentQuestionIndex];
     const answer = this.userAnswer.trim().toLowerCase();
 
-    if (currentQuestion.answers.includes(answer)) {
+    // vérifie la réponse en étant souple sur les espaces et les tirets
+    if (currentQuestion.answers[0].replace('-','').replace(' ','') === answer.replace('-','').replace(' ','')) {
       this.feedback = this.translations.quiz?.good || 'Bonne réponse !';
       this.score++;
     } else {
-      this.feedback = this.translations.quiz?.bad || 'Mauvaise réponse...';
+      this.feedback = this.translations.quiz?.bad || 'Mauvaise réponse... La bonne réponse était : ' + currentQuestion.answers[0];
     }
 
     setTimeout(() => {
       this.feedback = '';
       this.userAnswer = '';
       this.nextQuestion();
-    }, 1200);
+    }, 1700);
   }
 
   // Passe à la question suivante
